@@ -22,7 +22,7 @@ class Restaurant
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\Column(type: Types::SMALLINT)]
+    #[ORM\Column(type: Types::INTEGER)]
     private ?int $phone = null;
 
     #[ORM\Column(length: 255)]
@@ -65,6 +65,9 @@ class Restaurant
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
+
+    #[ORM\Column(type: Types::SMALLINT)]
+    private ?int $address_nb = null;
 
     public function __construct()
     {
@@ -284,6 +287,18 @@ class Restaurant
     public function setUser(User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getAddressNb(): ?int
+    {
+        return $this->address_nb;
+    }
+
+    public function setAddressNb(int $address_nb): static
+    {
+        $this->address_nb = $address_nb;
 
         return $this;
     }

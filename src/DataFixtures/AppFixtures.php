@@ -6,6 +6,9 @@ use App\Entity\City;
 use App\Entity\Customer;
 use App\Entity\FoodType;
 use App\Entity\Menu;
+use App\Entity\MenuComposition;
+use App\Entity\OpeningDays;
+use App\Entity\Pictures;
 use App\Entity\Plates;
 use App\Entity\PriceRange;
 use App\Entity\Restaurant;
@@ -19,19 +22,26 @@ class AppFixtures extends Fixture
     public function __construct(private UserPasswordHasherInterface $hasher)
     {}
 
-    private const RESTO_NB = 50;
+    private const RESTO_NB = 30;
 
-    private const PLATES_NB = 80;
+    private const PICTURES_NB = 120;
 
-    private const MENU_NB = 60;
+    private const PLATES_NB = 60;
+
+    private const MENU_NB = 40;
+
+    private const CUSTOMERS_NB = 40;
 
     private const FOOD_TYPES = ['Gastronomique', 'Italienne', 'Espagnole', 'Indienne', 'Chinoise', 'Thaïlandaise', 'Japonaise', 'Mexicaine', 'Africaine', 'Antillaise', 'Brésilienne', 'Végétarienne'];
 
-    private const CUSTOMERS_NB = 30;
+    private const OPENING_LUNCH = [126, 62, 63, 95, 2, 31];
+
+    private const OPENING_DINNER = [126, 62, 63, 95];
+
 
     public function load(ObjectManager $manager): void
     {
-        $fileList = file_get_contents('../data/liste_ville.json');
+        $fileList = file_get_contents('src/data/liste_villes.json');
         $villes = json_decode($fileList, true);
 
         $faker = \Faker\Factory::create();
@@ -42,13 +52,14 @@ class AppFixtures extends Fixture
         $restaurantUsers = [];
         $cities = [];
         $restaurants = [];
+        $menus = [];
 
 
         for ($i = 0; $i < self::RESTO_NB; $i++) {
             $city = new City();
-            $j = $faker->randomNumber(0, count($villes));
+            $j = $faker->numberBetween(0, count($villes));
             $city
-                ->setName($villes[$j]['Nom_commune'] )
+                ->setName($villes[$j]['Nom_commune'])
                 ->setCp($villes[$j]['Code_postal']);
             $cities[]=$city;
             $manager->persist($city);
@@ -64,7 +75,7 @@ class AppFixtures extends Fixture
 
         for ($i = 0; $i < 5; $i++)  {
             $priceRange = new PriceRange();
-            $priceRange->setPriceRange($i);
+            $priceRange->setPriceRange(intval($i+1));
             $priceRanges[] = $priceRange;
             $manager->persist($priceRange);
         }
@@ -109,10 +120,11 @@ class AppFixtures extends Fixture
                 ->setFoodType($faker->randomElement($foodTypes))
                 ->setPriceRange($faker->randomElement($priceRanges))
                 ->setCity($faker->randomElement($cities))
-                ->setAddress($faker->randomNumber(2, false). $faker->randomElement(['Rue', 'Boulevard', 'Place']) . $faker->word())
-                ->setPhone('0' . $faker->randomNumber(9, true))
+                ->setAddress($faker->randomElement(['Rue', 'Boulevard', 'Place']) . ' ' . $faker->word())
+                ->setAddressNb($faker->randomNumber(2, false))
+                ->setPhone($faker->randomNumber(9, true))
                 ->setNotationTotal($faker->numberBetween(2, 5))
-                ->setCapacityMax($faker->randomNumber(2, false))
+                ->setCapacityMax($faker->randomNumber(2, true))
                 ->setUser($restaurantUsers[$i]);
             $restaurants[] = $restaurant;
             $manager->persist($restaurant);
@@ -126,15 +138,38 @@ class AppFixtures extends Fixture
             $manager->persist($plate);
         }
 
-
         for ($i = 0; $i < self::MENU_NB; $i++)  {
             $menu = new Menu();
             $menu->setName($faker->word());
             $menu->setRestaurant($faker->randomElement($restaurants));
+            $menus[] = $menu;
             $manager->persist($menu);
+        }
+ 
+        for ($i = 0; $i < self::PLATES_NB; $i++)  {
+            $composition = new MenuComposition();
+            $composition->setMenu($faker->randomElement($menus));
+            $composition->setName($faker->word());
+            $manager->persist($composition);
         }
 
 
+        for ($i = 0; $i < self::RESTO_NB; $i++)  {
+            $opening = new OpeningDays();
+            $opening
+                    ->setMidi($faker->randomElement(self::OPENING_LUNCH))
+                    ->setSoir($faker->randomElement(self::OPENING_DINNER))
+                    ->setRestaurant($restaurants[$i]);
+            $manager->persist($opening);
+        }
+
+        for ($i = 0; $i < self::PICTURES_NB; $i++) {
+            $picture = new Pictures;
+            $picture
+                ->setFilename('restaurant-interior.jpg')
+                ->setRestaurant($faker->randomElement($restaurants));
+            $manager->persist($picture);
+        }
 
 
         $regularUser = new User();
@@ -142,7 +177,6 @@ class AppFixtures extends Fixture
             ->setEmail('john@doe.com')
             ->setRoles(['ROLE_CUSTOMER'])
             ->setPassword($this->hasher->hashPassword($regularUser, 'test'));
-
         $manager->persist($regularUser);
 
 
@@ -151,7 +185,6 @@ class AppFixtures extends Fixture
             ->setEmail('labonne@cuisine.com')
             ->setRoles(['ROLE_RESTAURANT'])
             ->setPassword($this->hasher->hashPassword($restaurantUser, 'test'));
-
         $manager->persist($restaurantUser);
 
         
@@ -160,7 +193,6 @@ class AppFixtures extends Fixture
             ->setEmail('admin@1001plates.com')
             ->setRoles(['ROLE_ADMIN'])
             ->setPassword($this->hasher->hashPassword($adminUser, 'test'));
-
         $manager->persist($adminUser);
 
 
