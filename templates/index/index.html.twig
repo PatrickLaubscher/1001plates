@@ -1,7 +1,5 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello IndexController!{% endblock %}
-
 {% block body %}
 
 <div class="container">
@@ -10,6 +8,26 @@
             <h1>Bienvenue à 1001 Plates !</h1>
         </div>
     </div>
+
+    <hr>
+    <ul class="list-group">
+    {% for restaurant in restaurants %}
+        <li class="list-group-item d-flex flex-column px-5 mx-5 mb-3">
+        <h3>{{restaurant.name}}</h3>
+
+
+        </li>
+    {% endfor %}
+
+    </ul>
+
+
+    <div class="row">
+        <div class="d-flex justify-content-center gap-2">
+        {{ knp_pagination_render(restaurants) }}
+        </div>
+    </div>
+
 </div>
 
 {% endblock %}

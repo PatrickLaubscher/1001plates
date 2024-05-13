@@ -5,15 +5,32 @@ namespace App\Repository;
 use App\Entity\Restaurant;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\Tools\Pagination\Paginator;
+use Knp\Component\Pager\Pagination\PaginationInterface;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * @extends ServiceEntityRepository<Restaurant>
  */
 class RestaurantRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, private PaginatorInterface $paginator)
     {
         parent::__construct($registry, Restaurant::class);
+    }
+
+
+    public function paginateRestaurant(int $page, int $itemPerPage): PaginationInterface
+    {
+        return $this->paginator->paginate(
+            $this->createQueryBuilder('r'),
+            $page,
+            $itemPerPage,
+            [
+                'distinct' => false,
+                'sortFieldAllowList' => ['r.id', 'r.title', 'r.date']
+            ]
+        );
     }
 
 //    /**
