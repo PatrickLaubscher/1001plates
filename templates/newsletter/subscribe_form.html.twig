@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="container">
+    <div class="row">
+        <div class="col my-4">
+            <h1>Inscription à la lettre de diffusion 1001 Plates</h1>
+        </div>
+    </div>
+    
+    {% for type, messages in app.flashes(['success', 'warning', 'alert']) %}
+        {% for message in messages %}
+            <div class="alert alert-{{ type }}" >
+            {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+    <hr>
+
+    <div class="row d-flex justify-content-center">
+        <div class="col col-md-6">
+            <p>Veuillez renseigner les champs ci-dessous :</p>
+            {{ form(newsletterForm) }}
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
+
+

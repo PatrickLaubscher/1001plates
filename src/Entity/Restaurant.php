@@ -25,6 +25,9 @@ class Restaurant
     #[ORM\Column(type: Types::INTEGER)]
     private ?int $phone = null;
 
+    #[ORM\Column(type: Types::SMALLINT)]
+    private ?int $address_nb = null;
+
     #[ORM\Column(length: 255)]
     private ?string $address = null;
 
@@ -66,8 +69,8 @@ class Restaurant
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
-    #[ORM\Column(type: Types::SMALLINT)]
-    private ?int $address_nb = null;
+    #[ORM\Column]
+    private ?int $siretNb = null;
 
     public function __construct()
     {
@@ -299,6 +302,18 @@ class Restaurant
     public function setAddressNb(int $address_nb): static
     {
         $this->address_nb = $address_nb;
+
+        return $this;
+    }
+
+    public function getSiretNb(): ?int
+    {
+        return $this->siretNb;
+    }
+
+    public function setSiretNb(int $siretNb): static
+    {
+        $this->siretNb = $siretNb;
 
         return $this;
     }

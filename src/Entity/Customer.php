@@ -20,7 +20,7 @@ class Customer
     #[ORM\Column(length: 255)]
     private ?string $lastname = null;
 
-    #[ORM\Column(type: Types::SMALLINT, nullable: true)]
+    #[ORM\Column(type: Types::INTEGER, nullable: true)]
     private ?int $phone = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]

@@ -11,7 +11,7 @@
                 <a class="nav-link" aria-current="page" href="{{ path('app_index') }}" title="Accueil">Accueil</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="" title="About">A propos</a>
+                <a class="nav-link" href="{{ path('app_newsletter_subscribe') }}" title="Contact">Newsletter</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="" title="Contact">Contact</a>
@@ -19,9 +19,9 @@
             
             <li class="nav-item"> 
             {% if app.user %}
-                <a class="nav-link" href="" title="Contact">Log out</a>
+                <a class="nav-link" href="{{path('app_logout')}}" title="Contact">Se déconnecter</a>
             {% else %}
-                <a class="nav-link" href="" title="Contact">Log in</a>
+                <a class="nav-link" href="{{path('app_login')}}" title="Contact">Se connecter</a>
             {% endif %}
             </li>
             

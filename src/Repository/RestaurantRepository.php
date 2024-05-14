@@ -33,6 +33,16 @@ class RestaurantRepository extends ServiceEntityRepository
         );
     }
 
+       public function findRestaurantNameByEmailUser($email): ?Restaurant
+    {
+        return $this->createQueryBuilder('r')
+            ->join('r.user', 'u')
+            ->andWhere('u.email = :val')
+            ->setParameter('val', $email)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
 //    /**
 //     * @return Restaurant[] Returns an array of Restaurant objects
 //     */

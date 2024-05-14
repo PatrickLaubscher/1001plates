@@ -8,17 +8,14 @@
             <h1>Bienvenue à 1001 Plates</h1>
         </div>
     </div>
-    {% for type, messages in app.flashes(['success', 'warning', 'alert']) %}
-        {% for message in messages %}
-            <div class="alert alert-{{ type }}" >
-            {{ message }}
-            </div>
-        {% endfor %}
-    {% endfor %}
-    
+
     <div class="d-flex flex-wrap justify-content-center">
         {% for foodType in foodTypes %}
+        {% if app.request.get('name') is same as(foodType.name) %}
+        <p class="px-3">{{ foodType.name }}</p>
+        {% else %}
         <a href="{{ path('app_food_type', {name: foodType.name}) }}"><p class="px-3">{{ foodType.name }}</p></a>
+        {% endif %}
         {% endfor %}
     </div>
 
@@ -34,12 +31,6 @@
 
     </ul>
 
-
-    <div class="row">
-        <div class="d-flex justify-content-center gap-2">
-        {{ knp_pagination_render(restaurants) }}
-        </div>
-    </div>
 
 </div>
 

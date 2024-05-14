@@ -15,11 +15,10 @@ use App\Entity\Restaurant;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
-    public function __construct(private UserPasswordHasherInterface $hasher)
+    public function __construct()
     {}
 
     private const RESTO_NB = 30;
@@ -86,7 +85,7 @@ class AppFixtures extends Fixture
             $customerUser
                 ->setEmail($faker->safeEmail())
                 ->setRoles(['ROLE_COSTUMER'])
-                ->setPassword($this->hasher->hashPassword($customerUser, 'test'));
+                ->setPassword('test');
             $customerUsers[] = $customerUser;
             $manager->persist($customerUser);
         }
@@ -97,6 +96,7 @@ class AppFixtures extends Fixture
             $customer
                     ->setFirstname($faker->word())
                     ->setLastname($faker->word())
+                    ->setPhone($faker->randomNumber(9, true))
                     ->setUser($customerUsers[$i]);
             $manager->persist($customer);
         }
@@ -107,7 +107,7 @@ class AppFixtures extends Fixture
             $restaurantUser
                 ->setEmail($faker->safeEmail())
                 ->setRoles(['ROLE_RESTAURANT'])
-                ->setPassword($this->hasher->hashPassword($restaurantUser, 'test'));
+                ->setPassword('test');
             $restaurantUsers[] = $restaurantUser;
             $manager->persist($restaurantUser);
         }
@@ -125,6 +125,7 @@ class AppFixtures extends Fixture
                 ->setPhone($faker->randomNumber(9, true))
                 ->setNotationTotal($faker->numberBetween(2, 5))
                 ->setCapacityMax($faker->randomNumber(2, true))
+                ->setSiretNb($faker->randomNumber(9, true))
                 ->setUser($restaurantUsers[$i]);
             $restaurants[] = $restaurant;
             $manager->persist($restaurant);
@@ -176,7 +177,7 @@ class AppFixtures extends Fixture
         $regularUser
             ->setEmail('john@doe.com')
             ->setRoles(['ROLE_CUSTOMER'])
-            ->setPassword($this->hasher->hashPassword($regularUser, 'test'));
+            ->setPassword('test');
         $manager->persist($regularUser);
 
 
@@ -184,7 +185,7 @@ class AppFixtures extends Fixture
         $restaurantUser
             ->setEmail('labonne@cuisine.com')
             ->setRoles(['ROLE_RESTAURANT'])
-            ->setPassword($this->hasher->hashPassword($restaurantUser, 'test'));
+            ->setPassword('test');
         $manager->persist($restaurantUser);
 
         
@@ -192,7 +193,7 @@ class AppFixtures extends Fixture
         $adminUser
             ->setEmail('admin@1001plates.com')
             ->setRoles(['ROLE_ADMIN'])
-            ->setPassword($this->hasher->hashPassword($adminUser, 'test'));
+            ->setPassword('test');
         $manager->persist($adminUser);
 
 
