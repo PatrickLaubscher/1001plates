@@ -3,30 +3,63 @@
 {% block body %}
 
 <div class="container">
-    <div class="row">
-        <div class="col my-4">
-            <h1>Bienvenue à 1001 Plates</h1>
-        </div>
-    </div>
-    {% for type, messages in app.flashes(['success', 'warning', 'alert']) %}
+    {% for type, messages in app.flashes(['success', 'danger', 'warning']) %}
         {% for message in messages %}
             <div class="alert alert-{{ type }}" >
             {{ message }}
             </div>
         {% endfor %}
     {% endfor %}
-    
-    <div class="d-flex flex-wrap justify-content-center">
-        {% for foodType in foodTypes %}
-        <a href="{{ path('app_food_type', {name: foodType.name}) }}"><p class="px-3">{{ foodType.name }}</p></a>
-        {% endfor %}
+    <div class="row">
+        <div class="col my-4">
+            <h1>Bienvenue à 1001 Plates</h1>
+        </div>
     </div>
 
+    {% if formRestoName is defined %}
+    <div class="row">
+        <h2>Vous recherchez un restaurant en particulier?</h2>
+        <div class="col-5">
+            {{ form(formRestoName) }}
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="row">    
+        <div class="col">
+            <h2>Sélection par type de cuisine</h2>
+            {% if cityName is defined %}
+            <h3>{{cityName}}</h3>
+            {% endif %}
+            <div class="d-flex flex-wrap justify-content-center">
+
+            {% if cityName is defined %}
+                {% for foodType in foodTypes %}
+                    <a href="{{ path('app_food_type_city',{cityName: cityName, name: foodType.name}) }}"><p class="px-3">{{ foodType.name }}</p></a>
+                {% endfor %}
+
+            {% else %}
+                {% for foodType in foodTypes %}
+                    <a href="{{ path('app_food_type', {name: foodType.name}) }}"><p class="px-3">{{ foodType.name }}</p></a>
+                {% endfor %}
+
+            {% endif %}
+            
+            </div>
+            {% if formCityName is defined %}
+            <div class="row">
+                <div class="col-5">
+                    {{ form(formCityName) }}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
     <hr>
     <ul class="list-group">
     {% for restaurant in restaurants %}
         <li class="list-group-item d-flex flex-column px-5 mx-5 mb-3">
-        <a href="{{ path('app_restaurant_record', {id: restaurant.id}) }}  "><h3>{{restaurant.name}}</h3></a>
+        <a href="{{ path('app_restaurant_record', {name: restaurant.name}) }}  "><h3>{{restaurant.name}}</h3></a>
 
 
         </li>

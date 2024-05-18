@@ -50,8 +50,8 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
 
         if ($role[0] == 'ROLE_ADMIN') {
             return new RedirectResponse($this->urlGenerator->generate('admin'));
-        } elseif ($role[0] == 'ROLE_RESTO') {
-            return new RedirectResponse($this->urlGenerator->generate('app_index'));
+        } elseif ($role[0] == 'ROLE_RESTAURANT') {
+            return new RedirectResponse($this->urlGenerator->generate('app_restaurant_crud_show'));
         } else {
             return new RedirectResponse($this->urlGenerator->generate('app_index'));
         }

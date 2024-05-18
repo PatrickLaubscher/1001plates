@@ -103,6 +103,15 @@
             "./config/packages/debug.yaml"
         ]
     },
+    "symfony/discord-notifier": {
+        "version": "6.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "5.2",
+            "ref": "b97655f9a2fb8fc04d9f4081e0b5599d897b7f6e"
+        }
+    },
     "symfony/flex": {
         "version": "2.4",
         "recipe": {

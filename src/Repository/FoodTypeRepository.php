@@ -16,6 +16,19 @@ class FoodTypeRepository extends ServiceEntityRepository
         parent::__construct($registry, FoodType::class);
     }
 
+
+    public function FindAllByCity(string $cityName): array
+    {
+        return $this->createQueryBuilder('f')
+            ->join('f.restaurants', 'r')
+            ->join('r.city', 'c')
+            ->where('c.name = :cityName')
+            ->setParameter('cityName', $cityName)
+            ->getQuery()
+            ->getResult();
+
+    }
+
     //    /**
     //     * @return FoodType[] Returns an array of FoodType objects
     //     */

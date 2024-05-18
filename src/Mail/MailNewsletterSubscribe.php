@@ -20,7 +20,7 @@ class MailNewsletterSubscribe
         ->from($newsletter->getEmail())
         ->to($this->adminEmail)
         ->subject('Nouvelle inscription à la newsletter')
-        ->text($newsletter->getFirstname() . " " . $newsletter->getLastname() . " s'est inscit(e) à la lettre de diffusion.");
+        ->text($newsletter->getFirstname() . " " . $newsletter->getLastname() . " s'est inscrit(e) à la lettre de diffusion.");
 
         $this->mailer->send($email);
     }

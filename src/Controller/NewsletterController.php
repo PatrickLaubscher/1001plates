@@ -3,11 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Newsletter;
+use App\Event\NewsletterRegisteredEvent;
 use App\Form\NewsletterType;
-use App\Mail\MailNewsletterSubscribe;
-use App\Mail\NewsletterSubscribeConfirm;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -18,8 +18,7 @@ class NewsletterController extends AbstractController
     public function subscribe(
         Request $request,
         EntityManagerInterface $em,
-        MailNewsletterSubscribe $mailNewsletterSubscribe,
-        NewsletterSubscribeConfirm $newsletterSubscribeConfirm
+        EventDispatcherInterface $eventDispatcher
     ): Response {
         $newsletter = new Newsletter();
         $form = $this->createForm(NewsletterType::class, $newsletter);
@@ -30,9 +29,11 @@ class NewsletterController extends AbstractController
             $em->persist($newsletter);
             $em->flush();
 
+            $eventDispatcher->dispatch(
+                new NewsletterRegisteredEvent($newsletter),
+                NewsletterRegisteredEvent::NAME
+            );
 
-            $mailNewsletterSubscribe->sendConfirmation($newsletter);
-            $newsletterSubscribeConfirm->sendConfirmation($newsletter);
             $this->addFlash('success', 'Merci, votre email a bien été enregistré');
             return $this->redirectToRoute('app_index');
         }

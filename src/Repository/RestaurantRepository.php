@@ -33,15 +33,47 @@ class RestaurantRepository extends ServiceEntityRepository
         );
     }
 
-       public function findRestaurantNameByEmailUser($email): ?Restaurant
+    /**
+     * 
+     * 
+     */
+    public function paginateRestaurantByCity(int $page, int $itemPerPage, string $cityName): PaginationInterface
+    {
+        return $this->paginator->paginate(
+            $this
+                ->createQueryBuilder('r')
+                ->join('r.city', 'c')
+                ->andWhere('c.name = :cityName')
+                ->setParameter('cityName', $cityName),
+            $page,
+            $itemPerPage,
+            [
+                'distinct' => false,
+                'sortFieldAllowList' => ['r.id', 'r.title', 'r.date']
+            ]
+        );
+    }
+
+    public function findRestaurantByName(string $name): ?array
+    {
+        return $this->createQueryBuilder('r')
+            ->where('r.name like :name')
+            ->setParameter('name', '%' . $name . '%')
+            ->getQuery()
+            ->getResult();
+    }
+
+    
+    public function findRestaurantByEmailUser(string $email): ?Restaurant
     {
         return $this->createQueryBuilder('r')
             ->join('r.user', 'u')
-            ->andWhere('u.email = :val')
+            ->where('u.email = :val')
             ->setParameter('val', $email)
             ->getQuery()
             ->getOneOrNullResult();
     }
+
 
 //    /**
 //     * @return Restaurant[] Returns an array of Restaurant objects

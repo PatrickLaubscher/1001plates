@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Form\GetCityNameType;
+use App\form\GetNameRestaurantType;
 use App\Repository\FoodTypeRepository;
 use App\Repository\RestaurantRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -13,21 +15,74 @@ class IndexController extends AbstractController
 {
     #[Route('/', name: 'app_index')]
     public function index(FoodTypeRepository $foodTypeRepository, RestaurantRepository $restaurantRepository, Request $request): Response
-    {
-        $foodTypes = $foodTypeRepository->findAll();
+    {        
 
+        $formRestoName = $this->createForm(GetNameRestaurantType::class);
+        $formRestoName->handleRequest($request);
+
+        if ($formRestoName->isSubmitted() && $formRestoName->isValid()) {
+
+            $data = $formRestoName->getData();
+            $name = $data['name'];
+
+            return $this->redirectToRoute('app_restaurant_list', ['name' => $name]);
+
+        }
+
+        $formCityName = $this->createForm(GetCityNameType::class, null, ['method' => 'GET']);
+        $formCityName->handleRequest($request);
+
+        if ($formCityName->isSubmitted() && $formCityName->isValid()) {
+
+            $data = $formCityName->getData();
+            $city=$data['city'];
+
+            return $this->redirectToRoute('app_index_city', ['cityName' => $city->getName()]);
+
+        }
+
+        $foodTypes = $foodTypeRepository->findAll();
         $page = $request->query->getInt('page', 1);
         $itemPerPage = 4;
         $restaurants = $restaurantRepository->paginateRestaurant($page, $itemPerPage);
         $maxPage = ceil($restaurants->getTotalItemCount() / $itemPerPage);
 
+
         return $this->render('index/index.html.twig', [
             'controller_name' => 'Accueil',
+            'formRestoName' => $formRestoName,
+            'formCityName' => $formCityName,
             'restaurants' => $restaurants,
             'maxPage' => $maxPage,
             'page' => $page,
             'foodTypes' => $foodTypes
         ]);
     }
+
+
+    #[Route('/{cityName}', name: 'app_index_city')]
+
+    public function indexCity(string $cityName, FoodTypeRepository $foodTypeRepository, RestaurantRepository $restaurantRepository, Request $request) 
+    {
+
+        $foodTypes = $foodTypeRepository->findAllByCity($cityName);
+        $page = $request->query->getInt('page', 1);
+        $itemPerPage = 4;
+        $restaurants = $restaurantRepository->paginateRestaurantByCity($page, $itemPerPage, $cityName);
+        $maxPage = ceil($restaurants->getTotalItemCount() / $itemPerPage);
+
+    
+        return $this->render('index/index.html.twig', [
+            'controller_name' => 'Accueil',
+            'restaurants' => $restaurants,
+            'maxPage' => $maxPage,
+            'page' => $page,
+            'foodTypes' => $foodTypes,
+            'cityName' => $cityName
+        ]);
+
+
+    }
+
 
 }
