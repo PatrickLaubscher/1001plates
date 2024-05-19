@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Form\GetCityNameType;
-use App\form\GetNameRestaurantType;
+use App\Form\GetNameRestaurantType;
 use App\Repository\FoodTypeRepository;
 use App\Repository\RestaurantRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -60,7 +60,7 @@ class IndexController extends AbstractController
     }
 
 
-    #[Route('/{cityName}', name: 'app_index_city')]
+    #[Route('/ville/{cityName}', name: 'app_index_city')]
 
     public function indexCity(string $cityName, FoodTypeRepository $foodTypeRepository, RestaurantRepository $restaurantRepository, Request $request) 
     {

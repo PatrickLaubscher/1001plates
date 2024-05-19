@@ -30,7 +30,8 @@ class NewsletterRegisteredSubscriber implements EventSubscriberInterface
         $this->mailNewsletterSubscribe->sendConfirmation($email);
     }
 
-    public function sendDiscordNotification(NewsletterRegisteredEvent $event): void
+
+    /* public function sendDiscordNotification(NewsletterRegisteredEvent $event): void
     {
         $email = $event->getNewsletter();
 
@@ -73,7 +74,7 @@ class NewsletterRegisteredSubscriber implements EventSubscriberInterface
         $chatMessage->options($discordOptions);
         $this->chatter->send($chatMessage);
 
-    }
+    } */
 
     
     public static function getSubscribedEvents(): array
@@ -84,6 +85,6 @@ class NewsletterRegisteredSubscriber implements EventSubscriberInterface
                 // ['sendDiscordNotification', 5]
             ]
         ];
-    }
+    } 
 
 }
