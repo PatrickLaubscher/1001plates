@@ -1,24 +1,27 @@
 
-<nav class="navbar navbar-expand-lg bg-secondary">
+<nav class="navbar navbar-expand-lg bg-blue">
     <div class="container">
-        <a class="navbar-brand permanent-marker-regular" href="{{ path('app_index') }}">1001 Plates</a>
+        <a class="navbar-brand permanent-marker-regular text-white" href="{{ path('app_index') }}">1001 Plates</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
             <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="{{ path('app_index') }}" title="Accueil">Accueil</a>
+                <a class="nav-link text-white" aria-current="page" href="{{ path('app_index') }}" title="Accueil">Accueil</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ path('app_newsletter_subscribe') }}" title="Newsletter subscribe">Newsletter</a>
+                <a class="nav-link text-white" aria-current="page" href="" title="Accueil">Créer un compte</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{{ path('app_newsletter_subscribe') }}" title="Newsletter subscribe">Newsletter</a>
             </li>
             
             <li class="nav-item"> 
             {% if app.user %}
-                <a class="nav-link" href="{{path('app_logout')}}" title="Contact">Se déconnecter</a>
+                <a class="nav-link text-white" href="{{path('app_logout')}}" title="Contact">Se déconnecter</a>
             {% else %}
-                <a class="nav-link" href="{{path('app_login')}}" title="Contact">Se connecter</a>
+                <a class="nav-link text-white" href="{{path('app_login')}}" title="Contact">Se connecter</a>
             {% endif %}
             </li>
             

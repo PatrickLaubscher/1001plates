@@ -54,6 +54,7 @@ class RestaurantRepository extends ServiceEntityRepository
         );
     }
 
+
     public function findRestaurantByName(string $name): ?array
     {
         return $this->createQueryBuilder('r')
@@ -72,6 +73,20 @@ class RestaurantRepository extends ServiceEntityRepository
             ->setParameter('val', $email)
             ->getQuery()
             ->getOneOrNullResult();
+    }
+
+
+    public function findAllRestaurantByCityAndFoodType(string $cityName, string $foodTypeName): ?array
+    {
+        return $this->createQueryBuilder('r')
+            ->join('r.city', 'c')
+            ->join('r.foodType', 'f')
+            ->where('c.name = :cityName')
+            ->andwhere('f.name = :foodTypeName')
+            ->setParameter('cityName', $cityName)
+            ->setParameter('foodTypeName', $foodTypeName)
+            ->getQuery()
+            ->getResult();
     }
 
 

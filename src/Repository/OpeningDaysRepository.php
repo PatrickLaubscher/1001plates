@@ -16,6 +16,17 @@ class OpeningDaysRepository extends ServiceEntityRepository
         parent::__construct($registry, OpeningDays::class);
     }
 
+    public function findByRestaurantName(string $restaurantName): ?OpeningDays
+    {
+        return $this->createQueryBuilder('o')
+            ->join('o.restaurant', 'r')
+            ->where('r.name = :name')
+            ->setParameter('name', $restaurantName)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
     //    /**
     //     * @return OpeningDays[] Returns an array of OpeningDays objects
     //     */

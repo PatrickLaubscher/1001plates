@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Exception\ApiException;
 use App\Entity\Newsletter;
 use App\Event\NewsletterRegisteredEvent;
 use App\Form\NewsletterType;
+use App\Mail\ApiSpamCheckerEmail;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -18,7 +20,8 @@ class NewsletterController extends AbstractController
     public function subscribe(
         Request $request,
         EntityManagerInterface $em,
-        EventDispatcherInterface $eventDispatcher
+        EventDispatcherInterface $eventDispatcher,
+        ApiSpamCheckerEmail $apiSpamCheckerEmail
     ): Response {
         $newsletter = new Newsletter();
         $form = $this->createForm(NewsletterType::class, $newsletter);
@@ -26,6 +29,18 @@ class NewsletterController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            
+            try {
+                if($apiSpamCheckerEmail->checkEmailIfSpam($newsletter->getEmail()) === True){
+                    return $this->redirectToRoute('app_index');
+                }    
+            } catch (\InvalidArgumentException $e) {
+                $this->addFlash('warning', "Le format d'email n'est pas valide");
+            } catch (ApiException) {
+                $this->addFlash('warning', "Il y a eu une erreur lors du traitement de votre email");
+            }
+ 
             $em->persist($newsletter);
             $em->flush();
 

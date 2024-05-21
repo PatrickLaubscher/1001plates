@@ -46,7 +46,7 @@ class Restaurant
     #[ORM\ManyToOne(inversedBy: 'restaurants')]
     #[ORM\JoinColumn(nullable: false)]
     private ?City $city = null;
-
+    
     /**
      * @var Collection<int, Menu>
      */

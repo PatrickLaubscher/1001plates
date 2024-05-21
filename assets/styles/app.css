@@ -1,1 +1,51 @@
+:root {
+    --white: #feffff;
+    --blue: #10343b;
+    --salmon: #de5c5c;
+    --green: #5a833b;
+}
+
+
+
+.bg-blue {
+    background-color: var(--blue);
+}
+
+.text-white {
+    color: var(--white);
+}
+
+.btn-green button {
+    background-color: var(--green);
+    border: var(--green) 1px solid;
+}
+
+.btn-green button:hover {
+    background-color: rgb(90 131 59 / 80%);
+    border: rgb(90 131 59 / 80%) 1px solid;
+}
+
+
+
+
+.link-item {
+    text-decoration: none;
+}
+
+.card-text {
+    height: 12rem;
+}
+
+.opening-days {
+    text-align: center;
+}
+
+.opening-days th,td {
+    padding: 6px;
+}
+
+.days th {
+    border-bottom: 1px solid black;
+}
+
 

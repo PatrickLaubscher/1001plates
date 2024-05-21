@@ -33,9 +33,9 @@ class AppFixtures extends Fixture
 
     private const FOOD_TYPES = ['Gastronomique', 'Italienne', 'Espagnole', 'Indienne', 'Chinoise', 'Thaïlandaise', 'Japonaise', 'Mexicaine', 'Africaine', 'Antillaise', 'Brésilienne', 'Végétarienne'];
 
-    private const OPENING_LUNCH = [126, 62, 63, 95, 2, 31];
+    private const OPENING_LUNCH = [127, 126, 63, 95];
 
-    private const OPENING_DINNER = [126, 62, 63, 95];
+    private const OPENING_DINNER = [127, 126, 63, 95];
 
 
     public function load(ObjectManager $manager): void

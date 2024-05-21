@@ -10,8 +10,66 @@
     </div>
 
     <hr>
+    <div class="inline-flex mb-3">
+    {% for picture in restaurant.pictures %}
+
+        <img src="{{ '/uploads/pictures/' ~ picture.filename }}" alt="{{restaurant.name}}" width="300">
+
+    {% endfor %}
+    </div>
+
     <h3>{{restaurant.name}}</h3>
 
+    <p>
+        Prix moyen<br>
+        {% for i in 1..restaurant.priceRange.priceRange %}
+        €
+        {% endfor %}
+    </p>
+
+    <p>
+        {{restaurant.foodType.name}}
+    </p>
+
+    <p>{{restaurant.description}}</p>
+
+
+    <table class="opening-days my-4">
+        <tbody>
+            <tr class="days">
+                <th></th>
+                <th>Lundi</th>
+                <th>Mardi</th>
+                <th>Mercredi</th>
+                <th>Jeudi</th>
+                <th>Vendredi</th>
+                <th>Samedi</th>
+                <th>Dimanche</th>
+            </tr>
+            <tr>
+                <th>Midi</th>
+                {% for isOpening in midiOpening %}
+                    {% if isOpening == '0' %}
+                    <td>Fermé</td>
+                    {% else %}
+                    <td>Ouvert</td>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+            <tr>
+                <th>Soir</th>
+                {% for isOpening in soirOpening %}
+                    {% if isOpening == '0' %}
+                    <td>Fermé</td>
+                    {% else %}
+                    <td>Ouvert</td>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+        </tbody>
+    </table>
+
+    <p>{{ restaurant.city.name|title }} ({{ restaurant.city.cp }})</p>
 
 </div>
 

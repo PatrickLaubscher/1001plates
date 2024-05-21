@@ -17,7 +17,11 @@ class GetNameRestaurantType extends AbstractType
             ->add('name', TextType::class, [
                 'label' => 'Recherche par nom',
                 'attr' => [
-                    'placeholder' => 'Entrez le nom du restaurant'
+                    'placeholder' => 'Entrez le nom du restaurant',
+                    'class' => 'col-10'
+                ],
+                'label_attr' => [
+                    'class' => 'd-none'
                 ]
             ])
             ->add('Rechercher', SubmitType::class)

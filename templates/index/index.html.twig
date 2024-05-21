@@ -3,27 +3,27 @@
 {% block body %}
 
 <div class="container">
-    {% for type, messages in app.flashes(['success', 'danger', 'warning']) %}
-        {% for message in messages %}
-            <div class="alert alert-{{ type }}" >
-            {{ message }}
-            </div>
-        {% endfor %}
-    {% endfor %}
     <div class="row">
         <div class="col my-4">
             <h1>Bienvenue à 1001 Plates</h1>
         </div>
     </div>
 
-    {% if formRestoName is defined %}
-    <div class="row">
-        <h2>Vous recherchez un restaurant en particulier?</h2>
-        <div class="col-5">
-            {{ form(formRestoName) }}
-        </div>
+    <div class="row my-4">
+        <h2 class="fs-4 mb-2">Vous recherchez un restaurant en particulier?</h2>
+        
+            {{ form_start(formRestoName) }}
+            <div class="col col-md-8 d-flex align-items-start gap-2">
+                <div class="col-10">
+                    {{ form_row(formRestoName.name) }}  
+                </div>
+                <div class="btn-green">
+                    {{ form_widget(formRestoName.Rechercher) }}
+                </div>
+            </div>
+            {{ form_end(formRestoName) }}
+ 
     </div>
-    {% endif %}
 
     <div class="row">    
         <div class="col">
@@ -56,16 +56,16 @@
         </div>
     </div>
     <hr>
-    <ul class="list-group">
+
+    <div class="d-flex justify-content-center gap-1">
+
     {% for restaurant in restaurants %}
-        <li class="list-group-item d-flex flex-column px-5 mx-5 mb-3">
-        <a href="{{ path('app_restaurant_record', {name: restaurant.name}) }}  "><h3>{{restaurant.name}}</h3></a>
 
+        {% include 'restaurant/restaurantCard.html.twig' with { restaurant: restaurant } %}
 
-        </li>
     {% endfor %}
 
-    </ul>
+    </div>
 
 
     <div class="row">

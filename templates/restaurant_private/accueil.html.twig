@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Restaurant{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <h1 class="mb-5 mt-3">Bienvenue dans votre espace privé</h1>
+
+        <p class="mb-4">Vous pouvez modifier les informations de votre restaurant en cliquant sur le lien "modifier" plus bas.</p>
+
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Nom du restaurant</th>
+                    <td>{{ restaurant.name }}</td>
+                </tr>
+                <tr>
+                    <th>Description</th>
+                    <td>{{ restaurant.description }}</td>
+                </tr>
+                <tr>
+                    <th>Type de cuisine</th>
+                    <td>{{ restaurant.foodType.name }}</td>
+                </tr>
+                <tr>
+                    <th>Téléphone</th>
+                    <td>0{{ restaurant.phone }}</td>
+                </tr>
+                <tr>
+                    <th>Numéro de voie</th>
+                    <td>{{ restaurant.addressNb }}</td>
+                </tr>
+                <tr>
+                    <th>Nom de voie, ou de la place</th>
+                    <td>{{ restaurant.address }}</td>
+                </tr>
+                <tr>
+                    <th>Ville</th>
+                    <td>{{ restaurant.city.name }}</td>
+                </tr>
+                <tr>
+                    <th>Capacité maximale d'accueil</th>
+                    <td>{{ restaurant.capacityMax }}</td>
+                </tr>
+
+            </tbody>
+        </table>
+
+        <a href="{{ path('app_restaurant_private_edit', {'id': restaurant.id}) }}" class="btn btn-warning mb-5 mt-4">Modifier les informations de mon restaurant</a>
+
+        <hr>
+        {{ include('restaurant_private/_delete_form.html.twig') }}
+
+    </div>
+
+{% endblock %}

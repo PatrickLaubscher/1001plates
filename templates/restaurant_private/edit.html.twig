@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification restaurant{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+    
+        <h1 class="mb-5 mt-3">Modifier les informations de mon restaurant</h1>
+
+        {{ include('restaurant_private/_form.html.twig', {'button_label': 'Valider les modifications'}) }}
+
+        <a href="{{ path('app_restaurant_private_accueil') }}">Revenir à votre page d'accueil</a>
+
+        {{ include('restaurant_private/_delete_form.html.twig') }}
+        
+    
+    </div>
+
+{% endblock %}

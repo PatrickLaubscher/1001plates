@@ -20,16 +20,15 @@
     </div>
 
     <hr>
-    <ul class="list-group">
+    <div class="d-flex justify-content-center gap-1">
+
     {% for restaurant in restaurants %}
-        <li class="list-group-item d-flex flex-column px-5 mx-5 mb-3">
-        <a href="{{ path('app_restaurant_record', {name: restaurant.name}) }}  "><h3>{{restaurant.name}}</h3></a>
 
+        {% include 'restaurant/restaurantCard.html.twig' with { restaurant: restaurant } %}
 
-        </li>
     {% endfor %}
 
-    </ul>
+    </div>
 
 
 </div>

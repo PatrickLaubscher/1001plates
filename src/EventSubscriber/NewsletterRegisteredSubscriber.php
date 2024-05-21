@@ -19,7 +19,6 @@ class NewsletterRegisteredSubscriber implements EventSubscriberInterface
     public function __construct(
         private NewsletterSubscribeConfirm $newsletterSubscribeConfirm,
         private MailNewsletterSubscribe $mailNewsletterSubscribe,
-        private ChatterInterface $chatter
         )
     {}
 

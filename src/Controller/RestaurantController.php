@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Restaurant;
+use App\Repository\OpeningDaysRepository;
 use App\Repository\RestaurantRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,11 +33,31 @@ class RestaurantController extends AbstractController
 
 
 
-    #[Route('/restaurant/{name}', name: 'app_restaurant_record')]
-    public function restaurantItem(Restaurant $restaurant): Response
+    #[Route('/restaurant/{name}', name: 'app_restaurant_item')]
+    public function restaurantItem(Restaurant $restaurant, OpeningDaysRepository $openingDaysRepository, $name): Response
     {
+        $openingDays= $openingDaysRepository->findByRestaurantName($name);
+
+        
+        if($openingDays->getMidi() === 63){
+            $midiOpeningList = str_split(decbin($openingDays->getMidi()));
+            array_unshift($midiOpeningList, "0");
+        } else {
+            $midiOpeningList = str_split(decbin($openingDays->getMidi()));
+        };
+        
+        if($openingDays->getSoir() === 63){
+            $soirOpeningList = str_split(decbin($openingDays->getSoir()));
+            array_unshift($soirOpeningList, "0");
+        } else {
+            $soirOpeningList = str_split(decbin($openingDays->getSoir()));
+        };  
+
+
         return $this->render('restaurant/restaurant.html.twig', [
             'restaurant' => $restaurant,
+            'midiOpening' => $midiOpeningList,
+            'soirOpening' => $soirOpeningList
         ]);
     }
 }

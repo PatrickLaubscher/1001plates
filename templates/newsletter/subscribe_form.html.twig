@@ -9,13 +9,6 @@
         </div>
     </div>
     
-    {% for type, messages in app.flashes(['success', 'warning', 'alert']) %}
-        {% for message in messages %}
-            <div class="alert alert-{{ type }}" >
-            {{ message }}
-            </div>
-        {% endfor %}
-    {% endfor %}
     <hr>
 
     <div class="row d-flex justify-content-center">
