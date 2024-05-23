@@ -20,7 +20,8 @@ class OpeningDays
     #[ORM\Column(type: Types::SMALLINT)]
     private ?int $soir = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(inversedBy: 'openingDays', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
     private ?Restaurant $restaurant = null;
 
     public function getId(): ?int
@@ -57,10 +58,11 @@ class OpeningDays
         return $this->restaurant;
     }
 
-    public function setRestaurant(?Restaurant $restaurant): static
+    public function setRestaurant(Restaurant $restaurant): static
     {
         $this->restaurant = $restaurant;
 
         return $this;
     }
+
 }

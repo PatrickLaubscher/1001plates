@@ -18,7 +18,7 @@ class Pictures
 
     #[ORM\ManyToOne(inversedBy: 'pictures')]
     private ?Restaurant $restaurant = null;
-
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -47,4 +47,5 @@ class Pictures
 
         return $this;
     }
+
 }

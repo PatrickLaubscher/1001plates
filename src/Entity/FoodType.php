@@ -21,7 +21,7 @@ class FoodType
     /**
      * @var Collection<int, Restaurant>
      */
-    #[ORM\OneToMany(targetEntity: Restaurant::class, mappedBy: 'foodType')]
+    #[ORM\OneToMany(targetEntity: Restaurant::class, mappedBy: 'foodtype')]
     private Collection $restaurants;
 
     public function __construct()
@@ -29,6 +29,7 @@ class FoodType
         $this->restaurants = new ArrayCollection();
     }
 
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -58,7 +59,7 @@ class FoodType
     {
         if (!$this->restaurants->contains($restaurant)) {
             $this->restaurants->add($restaurant);
-            $restaurant->setFoodType($this);
+            $restaurant->setFoodtype($this);
         }
 
         return $this;
@@ -68,11 +69,12 @@ class FoodType
     {
         if ($this->restaurants->removeElement($restaurant)) {
             // set the owning side to null (unless already changed)
-            if ($restaurant->getFoodType() === $this) {
-                $restaurant->setFoodType(null);
+            if ($restaurant->getFoodtype() === $this) {
+                $restaurant->setFoodtype(null);
             }
         }
 
         return $this;
     }
+
 }

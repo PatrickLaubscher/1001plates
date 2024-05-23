@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Admin;
 use App\Entity\City;
 use App\Entity\Customer;
 use App\Entity\FoodType;
@@ -47,8 +48,6 @@ class AppFixtures extends Fixture
 
         $foodTypes = [];
         $priceRanges = [];
-        $customerUsers = [];
-        $restaurantUsers = [];
         $cities = [];
         $restaurants = [];
         $menus = [];
@@ -79,17 +78,6 @@ class AppFixtures extends Fixture
             $manager->persist($priceRange);
         }
 
-
-        for ($i = 0; $i < SELF::CUSTOMERS_NB; $i++) {
-            $customerUser = new User();
-            $customerUser
-                ->setEmail($faker->safeEmail())
-                ->setRoles(['ROLE_COSTUMER'])
-                ->setPassword('test');
-            $customerUsers[] = $customerUser;
-            $manager->persist($customerUser);
-        }
-
        
         for ($i = 0; $i < SELF::CUSTOMERS_NB; $i++) {
             $customer = new Customer();
@@ -97,19 +85,11 @@ class AppFixtures extends Fixture
                     ->setFirstname($faker->word())
                     ->setLastname($faker->word())
                     ->setPhone($faker->randomNumber(9, true))
-                    ->setUser($customerUsers[$i]);
+                    ->setEmail($faker->safeEmail())
+                    ->setRoles(['ROLE_COSTUMER'])
+                    ->setPassword('test')
+                    ->setDiscr('customer');
             $manager->persist($customer);
-        }
-
-
-        for ($i = 0; $i < SELF::RESTO_NB; $i++) {
-            $restaurantUser = new User();
-            $restaurantUser
-                ->setEmail($faker->safeEmail())
-                ->setRoles(['ROLE_RESTAURANT'])
-                ->setPassword('test');
-            $restaurantUsers[] = $restaurantUser;
-            $manager->persist($restaurantUser);
         }
 
         for($i = 0; $i < self::RESTO_NB; $i++) {
@@ -126,7 +106,10 @@ class AppFixtures extends Fixture
                 ->setNotationTotal($faker->numberBetween(2, 5))
                 ->setCapacityMax($faker->randomNumber(2, true))
                 ->setSiretNb($faker->randomNumber(9, true))
-                ->setUser($restaurantUsers[$i]);
+                ->setEmail($faker->safeEmail())
+                ->setRoles(['ROLE_RESTAURANT'])
+                ->setPassword('test')
+                ->setDiscr('restaurant');
             $restaurants[] = $restaurant;
             $manager->persist($restaurant);
         }
@@ -173,29 +156,45 @@ class AppFixtures extends Fixture
         }
 
 
-        $regularUser = new User();
+        $regularUser = new Customer();
         $regularUser
+            ->setFirstname($faker->word())
+            ->setLastname($faker->word())
+            ->setPhone($faker->randomNumber(9, true))
             ->setEmail('john@doe.com')
             ->setRoles(['ROLE_CUSTOMER'])
-            ->setPassword('test');
+            ->setPassword('test')
+            ->setDiscr('customer');
         $manager->persist($regularUser);
 
-
-        $restaurantUser = new User();
-        $restaurantUser
+        $restaurant = new Restaurant();
+        $restaurant
+            ->setName($faker->word())
+            ->setDescription($faker->paragraph())
+            ->setFoodType($faker->randomElement($foodTypes))
+            ->setPriceRange($faker->randomElement($priceRanges))
+            ->setCity($faker->randomElement($cities))
+            ->setAddress($faker->randomElement(['Rue', 'Boulevard', 'Place']) . ' ' . $faker->word())
+            ->setAddressNb($faker->randomNumber(2, false))
+            ->setPhone($faker->randomNumber(9, true))
+            ->setNotationTotal($faker->numberBetween(2, 5))
+            ->setCapacityMax($faker->randomNumber(2, true))
+            ->setSiretNb($faker->randomNumber(9, true))
             ->setEmail('labonne@cuisine.com')
             ->setRoles(['ROLE_RESTAURANT'])
-            ->setPassword('test');
-        $manager->persist($restaurantUser);
+            ->setPassword('test')
+            ->setDiscr('restaurant');
+        $restaurants[] = $restaurant;
+        $manager->persist($restaurant);
 
         
-        $adminUser = new User();
+        $adminUser = new Admin();
         $adminUser
             ->setEmail('admin@1001plates.com')
             ->setRoles(['ROLE_ADMIN'])
-            ->setPassword('test');
+            ->setPassword('test')
+            ->setDiscr('admin');
         $manager->persist($adminUser);
-
 
         $manager->flush();
     }

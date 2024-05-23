@@ -9,12 +9,8 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: RestaurantRepository::class)]
-class Restaurant
+class Restaurant extends User
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
 
     #[ORM\Column(length: 255)]
     private ?string $name = null;
@@ -46,18 +42,18 @@ class Restaurant
     #[ORM\ManyToOne(inversedBy: 'restaurants')]
     #[ORM\JoinColumn(nullable: false)]
     private ?City $city = null;
-    
+
+    #[ORM\Column]
+    private ?int $siretNb = null;
+
     /**
      * @var Collection<int, Menu>
      */
-    #[ORM\OneToMany(targetEntity: Menu::class, mappedBy: 'restaurant')]
+    #[ORM\OneToMany(targetEntity: Menu::class, mappedBy: 'restaurants')]
     private Collection $menus;
 
-    /**
-     * @var Collection<int, Plates>
-     */
-    #[ORM\OneToMany(targetEntity: Plates::class, mappedBy: 'restaurant')]
-    private Collection $plates;
+    #[ORM\OneToOne(mappedBy: 'restaurant', cascade: ['persist', 'remove'])]
+    private ?OpeningDays $openingDays = null;
 
     /**
      * @var Collection<int, Pictures>
@@ -65,24 +61,19 @@ class Restaurant
     #[ORM\OneToMany(targetEntity: Pictures::class, mappedBy: 'restaurant')]
     private Collection $pictures;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?User $user = null;
-
-    #[ORM\Column]
-    private ?int $siretNb = null;
+    /**
+     * @var Collection<int, Plates>
+     */
+    #[ORM\OneToMany(targetEntity: Plates::class, mappedBy: 'restaurant')]
+    private Collection $plates;
 
     public function __construct()
     {
         $this->menus = new ArrayCollection();
-        $this->plates = new ArrayCollection();
         $this->pictures = new ArrayCollection();
+        $this->plates = new ArrayCollection();
     }
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getName(): ?string
     {
@@ -192,6 +183,30 @@ class Restaurant
         return $this;
     }
 
+    public function getAddressNb(): ?int
+    {
+        return $this->address_nb;
+    }
+
+    public function setAddressNb(int $address_nb): static
+    {
+        $this->address_nb = $address_nb;
+
+        return $this;
+    }
+
+    public function getSiretNb(): ?int
+    {
+        return $this->siretNb;
+    }
+
+    public function setSiretNb(int $siretNb): static
+    {
+        $this->siretNb = $siretNb;
+
+        return $this;
+    }
+
     /**
      * @return Collection<int, Menu>
      */
@@ -222,32 +237,19 @@ class Restaurant
         return $this;
     }
 
-    /**
-     * @return Collection<int, Plates>
-     */
-    public function getPlates(): Collection
+    public function getOpeningDays(): ?OpeningDays
     {
-        return $this->plates;
+        return $this->openingDays;
     }
 
-    public function addPlate(Plates $plate): static
+    public function setOpeningDays(OpeningDays $openingDays): static
     {
-        if (!$this->plates->contains($plate)) {
-            $this->plates->add($plate);
-            $plate->setRestaurant($this);
+        // set the owning side of the relation if necessary
+        if ($openingDays->getRestaurant() !== $this) {
+            $openingDays->setRestaurant($this);
         }
 
-        return $this;
-    }
-
-    public function removePlate(Plates $plate): static
-    {
-        if ($this->plates->removeElement($plate)) {
-            // set the owning side to null (unless already changed)
-            if ($plate->getRestaurant() === $this) {
-                $plate->setRestaurant(null);
-            }
-        }
+        $this->openingDays = $openingDays;
 
         return $this;
     }
@@ -282,38 +284,32 @@ class Restaurant
         return $this;
     }
 
-    public function getUser(): ?User
+    /**
+     * @return Collection<int, Plates>
+     */
+    public function getPlates(): Collection
     {
-        return $this->user;
+        return $this->plates;
     }
 
-    public function setUser(User $user): static
+    public function addPlate(Plates $plate): static
     {
-        $this->user = $user;
+        if (!$this->plates->contains($plate)) {
+            $this->plates->add($plate);
+            $plate->setRestaurant($this);
+        }
 
         return $this;
     }
 
-    public function getAddressNb(): ?int
+    public function removePlate(Plates $plate): static
     {
-        return $this->address_nb;
-    }
-
-    public function setAddressNb(int $address_nb): static
-    {
-        $this->address_nb = $address_nb;
-
-        return $this;
-    }
-
-    public function getSiretNb(): ?int
-    {
-        return $this->siretNb;
-    }
-
-    public function setSiretNb(int $siretNb): static
-    {
-        $this->siretNb = $siretNb;
+        if ($this->plates->removeElement($plate)) {
+            // set the owning side to null (unless already changed)
+            if ($plate->getRestaurant() === $this) {
+                $plate->setRestaurant(null);
+            }
+        }
 
         return $this;
     }

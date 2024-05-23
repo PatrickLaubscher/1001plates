@@ -27,12 +27,7 @@ class Menu
     #[ORM\ManyToOne(inversedBy: 'menus')]
     private ?Restaurant $restaurant = null;
 
-    public function __construct()
-    {
-        $this->menuCompositions = new ArrayCollection();
-    }
-
-    public function getId(): ?int
+     public function getId(): ?int
     {
         return $this->id;
     }
@@ -90,4 +85,5 @@ class Menu
 
         return $this;
     }
+
 }

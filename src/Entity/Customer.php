@@ -7,12 +7,8 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CustomerRepository::class)]
-class Customer
+class Customer extends User
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
 
     #[ORM\Column(length: 255)]
     private ?string $firstname = null;
@@ -22,15 +18,6 @@ class Customer
 
     #[ORM\Column(type: Types::INTEGER, nullable: true)]
     private ?int $phone = null;
-
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?User $user = null;
-    
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getFirstname(): ?string
     {
@@ -64,18 +51,6 @@ class Customer
     public function setPhone(?int $phone): static
     {
         $this->phone = $phone;
-
-        return $this;
-    }
-
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(User $user): static
-    {
-        $this->user = $user;
 
         return $this;
     }
