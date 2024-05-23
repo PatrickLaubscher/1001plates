@@ -17,7 +17,7 @@
                 <div class="col-10">
                     {{ form_row(formRestoName.name) }}  
                 </div>
-                <div class="btn-green">
+                <div class="btn-first">
                     {{ form_widget(formRestoName.Rechercher) }}
                 </div>
             </div>
@@ -27,7 +27,7 @@
 
     <div class="row">    
         <div class="col">
-            <h2>Sélection par type de cuisine</h2>
+            <h2 class="my-3">Sélection par type de cuisine</h2>
             {% if cityName is defined %}
             <h3>{{cityName}}</h3>
             {% endif %}
@@ -35,24 +35,35 @@
 
             {% if cityName is defined %}
                 {% for foodType in foodTypes %}
-                    <a href="{{ path('app_food_type_city',{cityName: cityName, name: foodType.name}) }}"><p class="px-3">{{ foodType.name }}</p></a>
+                    <a href="{{ path('app_food_type_city',{cityName: cityName, name: foodType.name}) }}" class="text-decoration-none"><p class="btn-second px-3">{{ foodType.name }}</p></a>
                 {% endfor %}
 
             {% else %}
                 {% for foodType in foodTypes %}
-                    <a href="{{ path('app_food_type', {name: foodType.name}) }}"><p class="px-3">{{ foodType.name }}</p></a>
+                    <a href="{{ path('app_food_type', {name: foodType.name}) }}" class="text-decoration-none"><p class="btn-second px-3">{{ foodType.name }}</p></a>
                 {% endfor %}
 
             {% endif %}
             
             </div>
-            {% if formCityName is defined %}
+
             <div class="row">
                 <div class="col-5">
-                    {{ form(formCityName) }}
+                {% if cityName is not defined %}
+                    {{ form_start(formCityName) }}
+                    <div class="col col-md-8">
+                        <div class="col-10">
+                            {{ form_row(formCityName.city) }}  
+                        </div>
+                        <div class="btn-first">
+                            {{ form_widget(formCityName.Valider) }}
+                        </div>
+                    </div>
+                    {{ form_end(formCityName) }}
+                {% endif %}
                 </div>
             </div>
-            {% endif %}
+
         </div>
     </div>
     <hr>

@@ -5,8 +5,6 @@
     --green: #5a833b;
 }
 
-
-
 .bg-blue {
     background-color: var(--blue);
 }
@@ -15,22 +13,57 @@
     color: var(--white);
 }
 
-.btn-green button {
+.btn-first button {
     background-color: var(--green);
     border: var(--green) 1px solid;
 }
 
-.btn-green button:hover {
+.btn-first button:hover {
     background-color: rgb(90 131 59 / 80%);
     border: rgb(90 131 59 / 80%) 1px solid;
 }
 
+.btn-first button:active {
+    background-color: rgb(90 131 59 / 80%);
+    border: rgb(90 131 59 / 80%) 1px solid;
+}
 
+.btn-second {
+    margin: 10px;
+    padding: 5px;
+    text-decoration: none;
+    color: var(--green);
+    background-color: var(--white);
+    border: var(--green) 1px solid;
+    border-radius: 10px;
+}
+
+.btn-second-active {
+    margin: 10px;
+    padding: 5px;
+    text-decoration: none;
+    color: var(--white);
+    background-color: rgb(90 131 59 / 80%);
+    border: var(--green) 1px solid;
+    border-radius: 10px;
+}
+
+.btn-second:hover {
+    color: var(--white);
+    background-color: rgb(90 131 59 / 80%);
+    transition: all 0.5s ease;
+}
 
 
 .link-item {
+    color: var(--green);
     text-decoration: none;
 }
+
+.link-item:hover {
+    color: var(--green);
+}
+
 
 .card-text {
     height: 12rem;
@@ -47,5 +80,3 @@
 .days th {
     border-bottom: 1px solid black;
 }
-
-

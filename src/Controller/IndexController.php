@@ -71,10 +71,23 @@ class IndexController extends AbstractController
         $restaurants = $restaurantRepository->paginateRestaurantByCity($page, $itemPerPage, $cityName);
         $maxPage = ceil($restaurants->getTotalItemCount() / $itemPerPage);
 
+        $formRestoName = $this->createForm(GetNameRestaurantType::class);
+        $formRestoName->handleRequest($request);
+
+        if ($formRestoName->isSubmitted() && $formRestoName->isValid()) {
+
+            $data = $formRestoName->getData();
+            $name = $data['name'];
+
+            return $this->redirectToRoute('app_restaurant_list', ['name' => $name]);
+
+        }
+
     
         return $this->render('index/index.html.twig', [
             'controller_name' => 'Accueil',
             'restaurants' => $restaurants,
+            'formRestoName' => $formRestoName,
             'maxPage' => $maxPage,
             'page' => $page,
             'foodTypes' => $foodTypes,

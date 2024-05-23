@@ -38,10 +38,12 @@ class RestaurantController extends AbstractController
     {
         $openingDays= $openingDaysRepository->findByRestaurantName($name);
 
-        
+
         if($openingDays->getMidi() === 63){
             $midiOpeningList = str_split(decbin($openingDays->getMidi()));
             array_unshift($midiOpeningList, "0");
+        } elseif ($openingDays->getMidi() === 0){
+            $midiOpeningList = array_fill(0, 7, 0);
         } else {
             $midiOpeningList = str_split(decbin($openingDays->getMidi()));
         };
@@ -53,6 +55,7 @@ class RestaurantController extends AbstractController
             $soirOpeningList = str_split(decbin($openingDays->getSoir()));
         };  
 
+        
 
         return $this->render('restaurant/restaurant.html.twig', [
             'restaurant' => $restaurant,

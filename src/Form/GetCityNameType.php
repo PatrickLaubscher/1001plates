@@ -19,7 +19,7 @@ class GetCityNameType extends AbstractType
                 'choice_label' => 'name',
                 'placeholder' => '',
                 'label' => 'Choisir une ville'
-            ])
+            ], )
             ->add('Valider', SubmitType::class)
         ;
     }

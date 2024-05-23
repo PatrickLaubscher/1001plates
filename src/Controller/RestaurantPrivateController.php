@@ -16,18 +16,16 @@ use Symfony\Component\Routing\Attribute\Route;
 class RestaurantPrivateController extends AbstractController
 {
     private $restaurantUser;
-    public function __construct(private SecurityController $securityController, private RestaurantRepository $restaurantRepository) 
-    {
-        $this->restaurantRepository = $restaurantRepository;
-        $user = $this->securityController->getUser();
-        $this->restaurantUser = $this->restaurantRepository->findRestaurantByEmailUser($user->getUserIdentifier());
-
-    }
+    public function __construct(private SecurityController $securityController) 
+    {}
 
 
     #[Route('/accueil', name: 'app_restaurant_private_accueil', methods: ['GET'])]
-    public function show(): Response
+    public function show(RestaurantRepository $restaurantRepository): Response
     {
+        $user = $this->securityController->getUser();
+        $this->restaurantUser = $restaurantRepository->findRestaurantByEmailUser($user->getUserIdentifier());
+
         return $this->render('restaurant_private/accueil.html.twig', [
             'restaurant' => $this->restaurantUser
         ]);
@@ -37,7 +35,8 @@ class RestaurantPrivateController extends AbstractController
     #[Route('/modification/{id}', name: 'app_restaurant_private_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Restaurant $restaurant, EntityManagerInterface $entityManager): Response
     {
-        
+
+        $this->denyAccessUnlessGranted('RESTO_EDIT', $restaurant);     
 
         $form = $this->createForm(RestaurantPrivateEditType::class, $restaurant);
         $form->handleRequest($request);
