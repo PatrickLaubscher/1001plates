@@ -7,7 +7,7 @@ As inspiration, I've used the following well-known websites :
 https://www.thefork.fr/
 https://www.lyonresto.com/ 
 
-Logo / colors / typo have been designed by Mara Ciora. I've also received some suggestions on UI/UX.
+Logo / colors / typo by Mara Ciora. 
 https://maraciora.com/
 
 The application isn't finished at this stage. I will continue to work on it.
@@ -17,6 +17,7 @@ The application isn't finished at this stage. I will continue to work on it.
 The website site is offering a listing of restaurant with relevant information. User can navigate and look for specified food type restaurant or searching by city. 
 Restaurant manager can create a account and complete the needed information. 
 The customer can contact directly the restaurant or use the booking service of the website.
+There is also an API who provides the list of the restaurant.
 
 ## Website UI
 
@@ -35,9 +36,16 @@ A resetPasswordController has been implemented also using the Symfony documentat
 ### Restaurant backoffice
 
 I've spent a lot of time in developping this back office where the restaurant user may modify the information and delete the account. The RestaurantPrivateController is maybe too heavy and could be maybe dispatched. I've developped the different forms one by one and tested them as well at first.
+An personnalized event is defined when a restaurant delete its account. The listener deletes the upload's pictures of the account. 
 
 
 ## Security 
+
+
+### User
+
+3 types of user are defined : admin, restaurant and customer with specific roles.
+
 
 ### Voters
 
@@ -47,9 +55,9 @@ I've used 2 voters in restaurant private space one based on restaurant id and th
 
 ## Issues
 
-### EventListener on Delete restaurant 
-It seems that the eventListener is not triggered when a restaurant is deleted.
-
+The API for checking spam may be more configuration to be efficient. I've conduct several test but I think another api check may be more suitable. 
+I didn't have the time to create the form for the openin day feature. It's working on the view side with binary conversion from integer. I have an idea for the create form but didn't try to do it. 
+I aslo tried to create an API exception for connection to the API but I'm not sure it's working well. Exceptions are on of the part I would like to learn more about. Managing error is quite challenging but interesting too.
 
 
 ## Features missing 
@@ -65,7 +73,7 @@ It seems that the eventListener is not triggered when a restaurant is deleted.
 ### Exceptions and error managements
 Url parameter name in restaurant controller, it should be also by city or id in case of restaurant with the same name.
 
-### API service
+### API service token
 
 
 ## Configuration
