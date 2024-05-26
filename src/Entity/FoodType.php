@@ -6,6 +6,7 @@ use App\Repository\FoodTypeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: FoodTypeRepository::class)]
 class FoodType
@@ -16,6 +17,7 @@ class FoodType
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['restaurant:read'])]
     private ?string $name = null;
 
     /**

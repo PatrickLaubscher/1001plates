@@ -37,6 +37,7 @@ class Restaurant extends User
     private ?int $capacityMax = null;
 
     #[ORM\ManyToOne(inversedBy: 'restaurants')]
+    #[Groups(['restaurant:read'])]
     private ?FoodType $foodType = null;
 
     #[ORM\ManyToOne(inversedBy: 'restaurants')]
@@ -44,6 +45,7 @@ class Restaurant extends User
 
     #[ORM\ManyToOne(inversedBy: 'restaurants')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['restaurant:read'])]
     private ?City $city = null;
 
     #[ORM\Column]
