@@ -16,7 +16,7 @@ final class RestaurantDeleteListener
     {}
 
 
-    #[AsEventListener(event: 'RestaurantDeleteEvent')]
+    #[AsEventListener(event: RestaurantDeleteEvent::NAME)]
     public function onRestaurantDeleteEvent($event): void
     {
         
