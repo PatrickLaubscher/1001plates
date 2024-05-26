@@ -17,6 +17,7 @@ The application isn't finished at this stage. I will continue to work on it.
 The website site is offering a listing of restaurant with relevant information. User can navigate and look for specified food type restaurant or searching by city. 
 Restaurant manager can create a account and complete the needed information. 
 The customer can contact directly the restaurant or use the booking service of the website.
+There is also an API who provides the list of the restaurant.
 
 ## Website UI
 
