@@ -3,11 +3,22 @@
 {% block body %}
 
 <div class="container">
-    <div class="row">
-        <div class="col my-4">
-            <h1>Bienvenue à 1001 Plates !</h1>
+
+    <header class="header">
+        <div class="row">
+            <div class="col mt-3 mb-3">
+                <h1>Fiche du restaurant "{{restaurant.name}}"</h1>
+                <h2 class="fs-5 mt-3 mb-0">{{ restaurant.city.name|title }}</h2>
+                <p class="mt-0 mb-4">({{ restaurant.city.cp }})</p>
+                <div class="mb-2">
+                    <h3 class="fs-5">Prix moyen</h3>
+                        {% for i in 1..restaurant.priceRange.priceRange %}
+                        €
+                        {% endfor %}
+                </div>
+            </div>
         </div>
-    </div>
+    </header>
 
     <hr>
     <div class="inline-flex mb-3">
@@ -17,59 +28,100 @@
 
     {% endfor %}
     </div>
+    
+    <h3 class="fs-5 mb-4">
+        <span class="fs-5">Type de cuisine: </span>{{restaurant.foodType.name}}
+    </h3>
 
-    <h3>{{restaurant.name}}</h3>
+    <h2>{{restaurant.name}}</h2>
 
-    <p>
-        Prix moyen<br>
-        {% for i in 1..restaurant.priceRange.priceRange %}
-        €
-        {% endfor %}
-    </p>
-
-    <p>
-        {{restaurant.foodType.name}}
-    </p>
-
-    <p>{{restaurant.description}}</p>
+    <section class="description">
+        <div class="row">
+            <div class="col col-md-8">
+                <p class="mb-5">{{restaurant.description}}</p>
+            </div>
+        </div>
+    </section>
 
 
-    <table class="opening-days my-4">
-        <tbody>
-            <tr class="days">
-                <th></th>
-                <th>Lundi</th>
-                <th>Mardi</th>
-                <th>Mercredi</th>
-                <th>Jeudi</th>
-                <th>Vendredi</th>
-                <th>Samedi</th>
-                <th>Dimanche</th>
-            </tr>
-            <tr>
-                <th>Midi</th>
-                {% for isOpening in midiOpening %}
-                    {% if isOpening == '0' %}
-                    <td>Fermé</td>
-                    {% else %}
-                    <td>Ouvert</td>
-                    {% endif %}
-                {% endfor %}
-            </tr>
-            <tr>
-                <th>Soir</th>
-                {% for isOpening in soirOpening %}
-                    {% if isOpening == '0' %}
-                    <td>Fermé</td>
-                    {% else %}
-                    <td>Ouvert</td>
-                    {% endif %}
-                {% endfor %}
-            </tr>
-        </tbody>
-    </table>
 
-    <p>{{ restaurant.city.name|title }} ({{ restaurant.city.cp }})</p>
+    <section>
+        <div class="row">
+            <div class="col col-md-8 d-flex justify-content-center flex-column">
+                <h2 class="fs-5 mb-2" >Jours d'ouverture et de fermeture</h2>
+                {% if midiOpening and soirOpening %}
+                <table class="opening-days mb-4">
+                    <tbody>
+                        <tr class="days">
+                            <th></th>
+                            <th>Lundi</th>
+                            <th>Mardi</th>
+                            <th>Mercredi</th>
+                            <th>Jeudi</th>
+                            <th>Vendredi</th>
+                            <th>Samedi</th>
+                            <th>Dimanche</th>
+                        </tr>
+                        <tr>
+                            <th>Midi</th>
+                            {% for isOpening in midiOpening %}
+                                {% if isOpening == '0' %}
+                                <td>Fermé</td>
+                                {% else %}
+                                <td>Ouvert</td>
+                                {% endif %}
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            <th>Soir</th>
+                            {% for isOpening in soirOpening %}
+                                {% if isOpening == '0' %}
+                                <td>Fermé</td>
+                                {% else %}
+                                <td>Ouvert</td>
+                                {% endif %}
+                            {% endfor %}
+                        </tr>
+                    </tbody>
+                </table>
+                {% endif %}
+                <div class="mb-4">
+                    <h2 class="fs-5 mb-2">Horaires d'ouverture:</h2> 
+                    {{ restaurant.openinghours }}
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="address">
+        <div class="row">
+            <div class="col">
+                <h2 class="fs-5">Adresse du restaurant</h2>
+                <p class="mb-0">{{ restaurant.addressnb }} {{ restaurant.address }}</p>
+                <p>{{ restaurant.city.name|title }} {{ restaurant.city.cp }}</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact">
+        <div class="row">
+            <div class="col">
+                <h2 class="fs-5">Pour contacter le restaurant</h2>
+                <p class="mb-0">0{{ restaurant.phone }}</p>
+                <p class="mb-0">{{ restaurant.email }}</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="row">
+            <div class="col d-flex justify-content-center">
+                <a href="" class="btn btn-primary">Faire une réservation</a>
+            </div>
+        </div>
+    </section>
+
 
 </div>
 

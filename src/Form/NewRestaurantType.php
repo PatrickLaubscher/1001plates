@@ -47,10 +47,6 @@ class NewRestaurantType extends AbstractType
                 'choice_label' => 'price_range',
                 'label' => 'Prix moyen de 1 à 5'
             ])
-            ->add('openingDays', EntityType::class, [
-                'class' => OpeningDays::class,
-                'choice_label' => 'id',
-            ])
             ->add('Valider', SubmitType::class)
         ;
     }

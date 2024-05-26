@@ -160,7 +160,7 @@ class AppFixtures extends Fixture
         }
 
 
-        for ($i = 0; $i < self::RESTO_NB; $i++)  {
+        for ($i = 0; $i < count($restaurants); $i++)  {
             $opening = new OpeningDays();
             $opening
                     ->setMidi($faker->randomElement(self::OPENING_LUNCH))
