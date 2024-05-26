@@ -63,6 +63,7 @@ It seems that the eventListener is not triggered when a restaurant is deleted.
 ### Booking service
 
 ### Exceptions and error managements
+Url parameter name in restaurant controller, it should be also by city or id in case of restaurant with the same name.
 
 ### API service
 
