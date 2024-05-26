@@ -93,9 +93,12 @@ body {
 }
 
 .link-item:hover {
-    color: var(--green);
+    color: var(--green2);
 }
 
+
+
+/* Restaurant template */
 
 .card-text {
     height: 12rem;

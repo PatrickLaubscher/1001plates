@@ -14,7 +14,7 @@
 
     <form method="post">
         {% if error %}
-            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            <div class="alert alert-danger">Vos identifiants ne sont pas valides.</div>
         {% endif %}
 
         {% if app.user %}
@@ -24,15 +24,15 @@
         {% endif %}
 
 
-        <h1 class="h3 mb-4 font-weight-normal">Veuillez renseigner les champs ci-dessous</h1>
+        <h1 class="h3 mt-3 mb-4 font-weight-normal">Veuillez renseigner les champs ci-dessous</h1>
 
         <div class="row d-flex justify-content-center mb-3">
             <div class="col-5">
                 <label for="inputEmail">Email</label>
-                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control mb-3" autocomplete="email" required autofocus>
                 <label for="inputPassword">Mot de passe</label>
-                <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-                <a href="{{ path('app_forgot_password_request') }}">Vous avez oublié votre mot de passe?</a>
+                <input type="password" name="password" id="inputPassword" class="form-control mb-3" autocomplete="current-password" required>
+                <a href="{{ path('app_forgot_password_request') }}" class="link-item">Vous avez oublié votre mot de passe?</a>
             </div>
         </div>
 
