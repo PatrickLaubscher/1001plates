@@ -35,9 +35,16 @@ A resetPasswordController has been implemented also using the Symfony documentat
 ### Restaurant backoffice
 
 I've spent a lot of time in developping this back office where the restaurant user may modify the information and delete the account. The RestaurantPrivateController is maybe too heavy and could be maybe dispatched. I've developped the different forms one by one and tested them as well at first.
+An personnalized event is defined when a restaurant delete its account. The listener deletes the upload's pictures of the account. 
 
 
 ## Security 
+
+
+### User
+
+3 types of user are defined : admin, restaurant and customer with specific roles.
+
 
 ### Voters
 
@@ -46,9 +53,6 @@ I've used 2 voters in restaurant private space one based on restaurant id and th
 
 
 ## Issues
-
-### EventListener on Delete restaurant 
-It seems that the eventListener is not triggered when a restaurant is deleted.
 
 
 
@@ -65,7 +69,7 @@ It seems that the eventListener is not triggered when a restaurant is deleted.
 ### Exceptions and error managements
 Url parameter name in restaurant controller, it should be also by city or id in case of restaurant with the same name.
 
-### API service
+### API service token
 
 
 ## Configuration
