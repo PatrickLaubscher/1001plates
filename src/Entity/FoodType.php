@@ -21,7 +21,7 @@ class FoodType
     /**
      * @var Collection<int, Restaurant>
      */
-    #[ORM\OneToMany(targetEntity: Restaurant::class, mappedBy: 'foodtype')]
+    #[ORM\OneToMany(targetEntity: Restaurant::class, mappedBy: 'foodType')]
     private Collection $restaurants;
 
     public function __construct()

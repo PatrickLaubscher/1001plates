@@ -26,7 +26,7 @@ class UploadPicture {
      * 
      * 
      */
-    public function uploadPicture (UploadedFile $file, int $articleId, object $restaurant, object $picture, object $form): void 
+    public function uploadPicture (UploadedFile $file, object $restaurant, object $form): void 
     {
         $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
         $safeFilename = $this->slugger->slug($originalFilename);
@@ -39,11 +39,9 @@ class UploadPicture {
                 $newfilename
             );
             
-            $articlePicturesList = $this->picturesRepository->findAllPicturesById($articleId);
-
+            $restaurantPicturesList = $restaurant->getPictures();
             $isDuplicate = false;
-
-            foreach ($articlePicturesList as $picture)
+            foreach ($restaurantPicturesList as $picture)
             if (str_contains($picture->getFilename(), $safeFilename)) {
                 unlink(__DIR__ . "/../../public/uploads/pictures/" . $picture->getFilename());
                 $isDuplicate = true;
@@ -52,7 +50,7 @@ class UploadPicture {
             if($isDuplicate == true) {
 
                 $picture->setFilename($newfilename);
-                $picture->setArticle($restaurant);
+                $picture->setRestaurant($restaurant);
                 $restaurant->addPicture($picture);
     
                 $this->em->persist($picture);

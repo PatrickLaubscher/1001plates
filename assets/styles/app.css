@@ -9,6 +9,10 @@
     background-color: var(--blue);
 }
 
+.bg-green {
+    background-color: var(--green);
+}
+
 .text-white {
     color: var(--white);
 }
@@ -79,4 +83,14 @@
 
 .days th {
     border-bottom: 1px solid black;
+}
+
+.newsletter {
+    border-radius: 10px;
+}
+
+.cta-newsletter {
+    background-color: var(--blue);
+    border: solid var(--white) 1px;
+    border-radius: 10px;
 }

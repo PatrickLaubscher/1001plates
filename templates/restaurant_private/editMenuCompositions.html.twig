@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des plats{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+    
+        <h1 class="mb-5 mt-3">Modifier la composition du menu "{{ menu.name }}"</h1>
+        
+        <table>
+        {% for composition in menu.menuCompositions %}
+
+            <tr>
+                <th>
+                    <p class="my-0">{{ composition.name }}</p>
+                </th>
+                <td>
+                <p class="my-0 px-5"> - </p>
+                </td>
+                <td>
+                    <form method="post" action="{{ path('app_restaurant_delete_composition', {id: composition.id}) }}">
+                        <button class="btn btn-sm btn-danger">Supprimer le plat</button>
+                    </form>
+                </td>
+            </tr>
+
+        {% endfor %}
+        </table>
+
+        <div class="row mt-4">
+            <div class="col col-md-8 my-5">
+            {{ form_start(form) }}
+                <h3>
+                    {{ form_label(form.menuCompositions) }}
+                </h3>
+                <p>
+                    {{ form_widget(form.menuCompositions) }}
+                </p>
+                {{ form_widget(form.Ajouter) }}
+            {{ form_end(form) }}
+            </div>
+        </div>
+
+
+        <br>
+
+        <div>
+            <a href="{{ path('app_restaurant_private_accueil') }}" class="btn btn-warning my-3">Revenir à votre page d'accueil</a>
+        </div>
+        <div>
+            <a href="{{ path('app_restaurant_private_menus', {'id': menu.restaurant.id}) }}" class="btn btn-warning">Revenir à la liste des menus</a>
+        </div>
+
+    </div>
+
+{% endblock %}

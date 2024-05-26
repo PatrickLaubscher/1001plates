@@ -106,6 +106,7 @@ class AppFixtures extends Fixture
                 ->setNotationTotal($faker->numberBetween(2, 5))
                 ->setCapacityMax($faker->randomNumber(2, true))
                 ->setSiretNb($faker->randomNumber(9, true))
+                ->setOpeningHours($faker->paragraph())
                 ->setEmail($faker->safeEmail())
                 ->setRoles(['ROLE_RESTAURANT'])
                 ->setPassword('test')
@@ -113,6 +114,27 @@ class AppFixtures extends Fixture
             $restaurants[] = $restaurant;
             $manager->persist($restaurant);
         }
+
+        $restaurant = new Restaurant();
+        $restaurant
+            ->setName($faker->word())
+            ->setDescription($faker->paragraph())
+            ->setFoodType($faker->randomElement($foodTypes))
+            ->setPriceRange($faker->randomElement($priceRanges))
+            ->setCity($faker->randomElement($cities))
+            ->setAddress($faker->randomElement(['Rue', 'Boulevard', 'Place']) . ' ' . $faker->word())
+            ->setAddressNb($faker->randomNumber(2, false))
+            ->setPhone($faker->randomNumber(9, true))
+            ->setNotationTotal($faker->numberBetween(2, 5))
+            ->setCapacityMax($faker->randomNumber(2, true))
+            ->setSiretNb($faker->randomNumber(9, true))
+            ->setOpeningHours($faker->paragraph())
+            ->setEmail('labonne@cuisine.com')
+            ->setRoles(['ROLE_RESTAURANT'])
+            ->setPassword('test')
+            ->setDiscr('restaurant');
+        $restaurants[] = $restaurant;
+        $manager->persist($restaurant);
 
         
         for ($i = 0; $i < self::PLATES_NB; $i++)  {
@@ -166,27 +188,6 @@ class AppFixtures extends Fixture
             ->setPassword('test')
             ->setDiscr('customer');
         $manager->persist($regularUser);
-
-        $restaurant = new Restaurant();
-        $restaurant
-            ->setName($faker->word())
-            ->setDescription($faker->paragraph())
-            ->setFoodType($faker->randomElement($foodTypes))
-            ->setPriceRange($faker->randomElement($priceRanges))
-            ->setCity($faker->randomElement($cities))
-            ->setAddress($faker->randomElement(['Rue', 'Boulevard', 'Place']) . ' ' . $faker->word())
-            ->setAddressNb($faker->randomNumber(2, false))
-            ->setPhone($faker->randomNumber(9, true))
-            ->setNotationTotal($faker->numberBetween(2, 5))
-            ->setCapacityMax($faker->randomNumber(2, true))
-            ->setSiretNb($faker->randomNumber(9, true))
-            ->setEmail('labonne@cuisine.com')
-            ->setRoles(['ROLE_RESTAURANT'])
-            ->setPassword('test')
-            ->setDiscr('restaurant');
-        $restaurants[] = $restaurant;
-        $manager->persist($restaurant);
-
         
         $adminUser = new Admin();
         $adminUser

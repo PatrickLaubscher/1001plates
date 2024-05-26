@@ -1,7 +1,6 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-
 <div class="container">
     <div class="row">
         <div class="col my-4">
@@ -86,6 +85,18 @@
     </div>
 
 </div>
+
+<div class="container mt-5">
+    <section class="newsletter bg-green">
+        <div class="row px-5">
+            <div class="col px-3 my-3 d-flex gap-5 justify-content-around align-items-center text-white">
+                <p class="fs-4 my-0">Tenez-vous au courant des dernières actualités, restaurants tendances et nouveautés</p>
+                <a class="nav-link" href="{{ path('app_newsletter_subscribe') }}" title="Newsletter subscribe"><p class="cta-newsletter fs-5 my-0 px-2">S'inscrire à la newsletter</p></a>
+            </div>
+        </div>
+    </section>
+</div>
+
 
 {% endblock %}
 

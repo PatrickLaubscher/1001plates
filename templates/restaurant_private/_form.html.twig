@@ -1,4 +1,7 @@
+
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Sauvegarder les modifications') }}</button>
+    <h3 class="fs-4">{{ form_widget(form) }}</h3>
+    <button class="btn btn-primary my-5">{{ button_label|default('Sauvegarder les modifications') }}</button>
 {{ form_end(form) }}
+
+

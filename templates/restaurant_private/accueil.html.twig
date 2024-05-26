@@ -7,7 +7,7 @@
     <div class="container">
         <h1 class="mb-5 mt-3">Bienvenue dans votre espace privé</h1>
 
-        <p class="mb-4">Vous pouvez modifier les informations de votre restaurant en cliquant sur le lien "modifier" plus bas.</p>
+        <p class="mb-4">Vous pouvez modifier les différentes informations de votre restaurant en cliquant sur les liens plus bas.</p>
 
         <table class="table">
             <tbody>
@@ -47,10 +47,22 @@
             </tbody>
         </table>
 
-        <a href="{{ path('app_restaurant_private_edit', {'id': restaurant.id}) }}" class="btn btn-warning mb-5 mt-4">Modifier les informations de mon restaurant</a>
-
-        <hr>
-        {{ include('restaurant_private/_delete_form.html.twig') }}
+        <section class="row d-flex justify-content-center">
+            <div class="col col-md-10">
+                <h3 class="my-3">Options de modification de votre compte</h3>
+                <div class="my-4">
+                    <a href="{{ path('app_restaurant_private_edit', {'id': restaurant.id}) }}" class="btn btn-warning">Modifier les informations de mon restaurant</a>
+                </div>
+                <div class="my-4">
+                    <a href="{{ path('app_restaurant_private_pictures', {'id': restaurant.id}) }}" class="btn btn-warning">Ajouter/modifier les photos</a>
+                </div>
+                <div class="my-4">
+                    <a href="{{ path('app_restaurant_private_plates', {'id': restaurant.id}) }}" class="btn btn-warning">Gérer vos listes de plats</a>  
+                    <a href="{{ path('app_restaurant_private_menus', {'id': restaurant.id}) }}" class="btn btn-warning">Gérer vos listes de menus</a>          
+                </div>
+                
+            </div>
+        </section>
 
     </div>
 

@@ -49,7 +49,7 @@ class Restaurant extends User
     /**
      * @var Collection<int, Menu>
      */
-    #[ORM\OneToMany(targetEntity: Menu::class, mappedBy: 'restaurants')]
+    #[ORM\OneToMany(targetEntity: Menu::class, mappedBy: 'restaurant')]
     private Collection $menus;
 
     #[ORM\OneToOne(mappedBy: 'restaurant', cascade: ['persist', 'remove'])]
@@ -66,6 +66,9 @@ class Restaurant extends User
      */
     #[ORM\OneToMany(targetEntity: Plates::class, mappedBy: 'restaurant')]
     private Collection $plates;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $OpeningHours = null;
 
     public function __construct()
     {
@@ -310,6 +313,18 @@ class Restaurant extends User
                 $plate->setRestaurant(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getOpeningHours(): ?string
+    {
+        return $this->OpeningHours;
+    }
+
+    public function setOpeningHours(?string $OpeningHours): static
+    {
+        $this->OpeningHours = $OpeningHours;
 
         return $this;
     }

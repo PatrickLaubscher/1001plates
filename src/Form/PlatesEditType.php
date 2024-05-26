@@ -4,29 +4,22 @@ namespace App\Form;
 
 use App\Entity\Restaurant;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\All;
-use Symfony\Component\Validator\Constraints\Image;
 
-class UploadPicturesRestaurantType extends AbstractType
+class PlatesEditType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('pictures', FileType::class, [
-                'label' => "Ajouter des images",
+            ->add('plates', TextType::class, [
+                'label' => 'Nom du plat',
                 'mapped' => false,
-                'required' => false,
-                'multiple' => true,
-                'constraints' => [
-                    new All([
-                        new Image()
-                    ])
-                ]
+                'required' => false
             ])
+
             ->add('Ajouter', SubmitType::class)
         ;
     }

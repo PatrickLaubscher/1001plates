@@ -49,7 +49,7 @@ class IndexController extends AbstractController
 
 
         return $this->render('index/index.html.twig', [
-            'controller_name' => 'Accueil',
+            'title' => 'Accueil',
             'formRestoName' => $formRestoName,
             'formCityName' => $formCityName,
             'restaurants' => $restaurants,
@@ -85,7 +85,7 @@ class IndexController extends AbstractController
 
     
         return $this->render('index/index.html.twig', [
-            'controller_name' => 'Accueil',
+            'title' => $cityName,
             'restaurants' => $restaurants,
             'formRestoName' => $formRestoName,
             'maxPage' => $maxPage,

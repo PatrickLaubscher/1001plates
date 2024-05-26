@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Photos restaurant{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+    
+        <h1 class="mb-5 mt-3">Ajouter/supprimer les photos de mon restaurant</h1>
+
+        <div class="d-flex gap-2 flex-wrap justify-content-around mb-3">
+        {% for picture in restaurant.pictures %}
+
+            <div class="d-flex flex-column gap-2">
+                <img src="{{ '/uploads/pictures/' ~ picture.filename }}" alt="{{restaurant.name}}" width="300">
+                <form method="post" action="{{ path('app_restaurant_delete_picture', {id: picture.id}) }}">
+                    <button class="btn btn-danger btn-sm">Supprimer</button>
+                </form>
+            </div>
+
+        {% endfor %}
+        </div>
+
+        <div class="row mt-4">
+            <div class="col col-md-10 my-5">
+            {{ form_start(form) }}
+                <h3>
+                    {{ form_label(form.pictures) }}
+                </h3>
+                <p>
+                    {{ form_widget(form.pictures) }}
+                </p>
+                {{ form_widget(form.Ajouter) }}
+            {{ form_end(form) }}
+            </div>
+        </div>
+
+
+        <br>
+        <a href="{{ path('app_restaurant_private_accueil') }}" class="btn btn-warning">Revenir à votre page d'accueil</a>
+    
+    </div>
+
+{% endblock %}

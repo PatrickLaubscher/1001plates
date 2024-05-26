@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class FoodTypeController extends AbstractController
 {
     #[Route('/type_cuisine/{name}', name: 'app_food_type')]
-    public function foodType(FoodTypeRepository $foodTypeRepository, FoodType $foodType, Request $request): Response
+    public function foodType(FoodTypeRepository $foodTypeRepository, FoodType $foodType, Request $request, string $name): Response
     {
         $foodTypes = $foodTypeRepository->findAll();
         $restaurants = $foodType->getRestaurants();
@@ -34,6 +34,7 @@ class FoodTypeController extends AbstractController
 
 
         return $this->render('food_type/restaurantList.html.twig', [
+            'title' => $name,
             'restaurants' => $restaurants,
             'foodTypes' => $foodTypes,
             'formCityName' => $formCityName
@@ -49,6 +50,7 @@ class FoodTypeController extends AbstractController
         $restaurants = $restaurantRepository->findAllRestaurantByCityAndFoodType($cityName, $name);
 
         return $this->render('food_type/restaurantList.html.twig', [
+            'title' => $cityName,
             'restaurants' => $restaurants,
             'foodTypes' => $foodTypes
         ]);

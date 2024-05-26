@@ -28,7 +28,7 @@ class RestaurantRepository extends ServiceEntityRepository
             $itemPerPage,
             [
                 'distinct' => false,
-                'sortFieldAllowList' => ['r.id', 'r.title', 'r.date']
+                'sortFieldAllowList' => ['r.title', 'r.date']
             ]
         );
     }
@@ -49,7 +49,7 @@ class RestaurantRepository extends ServiceEntityRepository
             $itemPerPage,
             [
                 'distinct' => false,
-                'sortFieldAllowList' => ['r.id', 'r.title', 'r.date']
+                'sortFieldAllowList' => ['r.title', 'r.date']
             ]
         );
     }
@@ -63,18 +63,6 @@ class RestaurantRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
-
-    
-    public function findRestaurantByEmailUser(string $email): ?Restaurant
-    {
-        return $this->createQueryBuilder('r')
-            ->join('r.user', 'u')
-            ->where('u.email = :val')
-            ->setParameter('val', $email)
-            ->getQuery()
-            ->getOneOrNullResult();
-    }
-
 
     public function findAllRestaurantByCityAndFoodType(string $cityName, string $foodTypeName): ?array
     {
