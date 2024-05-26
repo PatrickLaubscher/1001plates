@@ -12,17 +12,16 @@
             <li class="nav-item">
                 <a class="nav-link text-white" aria-current="page" href="{{ path('app_index') }}" title="Accueil">Accueil</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link text-white" aria-current="page" href="" title="Créer un compte">Créer un compte</a>
-            </li>
 
             <li class="nav-item">
                 {% if is_granted('ROLE_ADMIN') %}
-                    Administrator Adimin
+                    <a class="nav-link text-white" href="" title="Contact">Espace privé</a>
                 {% elseif is_granted('ROLE_RESTAURANT') %}
                     <a class="nav-link text-white" href="{{path('app_restaurant_private_accueil')}}" title="Contact">Espace privé</a>
                 {% elseif is_granted('ROLE_USER') %}
                     <a class="nav-link text-white" href="" title="Contact">Espace privé</a>
+                {% else %}
+                    <a class="nav-link text-white" aria-current="page" href="{{ path('app_register') }}" title="Créer un compte">Créer un compte</a>
                 {% endif %}
             </li>
             

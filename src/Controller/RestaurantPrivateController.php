@@ -7,6 +7,7 @@ use App\Entity\MenuComposition;
 use App\Entity\Pictures;
 use App\Entity\Plates;
 use App\Entity\Restaurant;
+use App\Event\RestaurantDeleteEvent;
 use App\Files\UploadPicture;
 use App\Form\MenuCompositionType;
 use App\Form\MenusEditType;
@@ -18,8 +19,10 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Attribute\Route;
-
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Filesystem\Filesystem;
 
 #[Route('/restaurant/private')]
 class RestaurantPrivateController extends AbstractController
@@ -58,15 +61,28 @@ class RestaurantPrivateController extends AbstractController
         ]);
     }
 
-    #[Route('/delete', name: 'app_restaurant_private_delete', methods: ['POST'])]
-    public function delete(Request $request, Restaurant $restaurant, EntityManagerInterface $entityManager): Response
+    #[Route('/delete/{id}', name: 'app_restaurant_private_delete', methods: ['POST'])]
+    public function delete(Request $request, Restaurant $restaurant, EntityManagerInterface $entityManager, SessionInterface $sessionInterface, EventDispatcherInterface $dispatcher): Response
     {
+
         if ($this->isCsrfTokenValid('delete'.$restaurant->getId(), $request->getPayload()->get('_token'))) {
+
+            $event = new RestaurantDeleteEvent($restaurant);
+            $dispatcher->dispatch($event, RestaurantDeleteEvent::NAME);
+            
+            $sessionInterface->invalidate();
+            $this->container->get('security.token_storage')->setToken(null);
+
             $entityManager->remove($restaurant);
             $entityManager->flush();
+
+            $this->addFlash('success', 'Votre compte a bien été supprimé');
+            return $this->redirectToRoute('app_index');
+
         }
 
-        return $this->redirectToRoute('app_restaurant_private_accueil', [], Response::HTTP_SEE_OTHER);
+        $this->addFlash('warning', 'Il y a eu une erreur dans la suppression de votre compte');
+        return $this->redirectToRoute('app_index');
     }
 
 
@@ -99,10 +115,11 @@ class RestaurantPrivateController extends AbstractController
 
 
     #[Route('/modification/pictures/{id}/delete', name: 'app_restaurant_delete_picture', methods: ['POST'])]
-    public function deletePicture(Pictures $picture, EntityManagerInterface $entityManager): Response
+    public function deletePicture(Pictures $picture, EntityManagerInterface $entityManager, Filesystem $filesystem): Response
     {
 
         $restoId = $picture->getRestaurant()->getId();
+        $filesystem->remove(__DIR__ . "/../../public/uploads/pictures/" . $picture->getFilename());
         $entityManager->remove($picture);
         $entityManager->flush();
         

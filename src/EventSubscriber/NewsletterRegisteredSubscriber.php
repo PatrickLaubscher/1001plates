@@ -30,7 +30,7 @@ class NewsletterRegisteredSubscriber implements EventSubscriberInterface
     }
 
 
-    /* public function sendDiscordNotification(NewsletterRegisteredEvent $event): void
+    /* //En souvenir// : public function sendDiscordNotification(NewsletterRegisteredEvent $event): void
     {
         $email = $event->getNewsletter();
 

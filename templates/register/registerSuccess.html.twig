@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="container">
+    <div class="row">
+        <div class="col my-4">
+            <h1>Merci pour votre inscription à 1001 plates !</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col d-flex justify-content-center mt-5 mb-4">
+            <div class="btn-first">
+                <a href="{{path('app_login')}}" class="btn btn-primary">Connectez-vous afin de compléter votre compte</a>
+            </div>
+        </div>    
+    </div>
+
+    <div class="row">
+        <div class="col d-flex justify-content-center mt-3 mb-5">
+            <div class="btn-first">
+                <a href="{{ path('app_index') }}" class="btn btn-primary">Revenir à l'accueil</a>
+            </div>
+        </div>    
+    </div>
+
+
+</div>
+{% endblock %}

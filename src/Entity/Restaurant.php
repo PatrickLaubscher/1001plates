@@ -49,7 +49,7 @@ class Restaurant extends User
     /**
      * @var Collection<int, Menu>
      */
-    #[ORM\OneToMany(targetEntity: Menu::class, mappedBy: 'restaurant')]
+    #[ORM\OneToMany(targetEntity: Menu::class, mappedBy: 'restaurant', cascade: ['remove'])]
     private Collection $menus;
 
     #[ORM\OneToOne(mappedBy: 'restaurant', cascade: ['persist', 'remove'])]
@@ -58,13 +58,13 @@ class Restaurant extends User
     /**
      * @var Collection<int, Pictures>
      */
-    #[ORM\OneToMany(targetEntity: Pictures::class, mappedBy: 'restaurant')]
+    #[ORM\OneToMany(targetEntity: Pictures::class, mappedBy: 'restaurant', cascade: ['remove'])]
     private Collection $pictures;
 
     /**
      * @var Collection<int, Plates>
      */
-    #[ORM\OneToMany(targetEntity: Plates::class, mappedBy: 'restaurant')]
+    #[ORM\OneToMany(targetEntity: Plates::class, mappedBy: 'restaurant', cascade: ['remove'])]
     private Collection $plates;
 
     #[ORM\Column(length: 255, nullable: true)]

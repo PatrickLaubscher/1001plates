@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="container">
+    <div class="row">
+        <div class="col my-4">
+            <h1>Créer un compte à 1001plates</h1>
+        </div>
+    </div>
+
+    <section>
+        <div class="row">
+            <div class="col col-10 d-flex flex-column mt-5 mb-4">
+                {{ form_start(form) }}
+                <h3 class="fs-4 my-2">{{ form_widget(form) }}</h3>
+                {{ form_end(form) }}
+            </div>    
+        </div>
+    </section>
+
+
+</div>
+{% endblock %}

@@ -48,7 +48,7 @@
         </table>
 
         <section class="row d-flex justify-content-center">
-            <div class="col col-md-10">
+            <div class="col">
                 <h3 class="my-3">Options de modification de votre compte</h3>
                 <div class="my-4">
                     <a href="{{ path('app_restaurant_private_edit', {'id': restaurant.id}) }}" class="btn btn-warning">Modifier les informations de mon restaurant</a>
@@ -64,6 +64,21 @@
             </div>
         </section>
 
-    </div>
+
+        <hr class="my-3">
+    <section>
+        <div class="row d-flex">
+            <div class="col mt-5">
+                <div>
+                    <h3>Suppression de votre compte</h3>
+                    <p class="my-3">Nous sommes triste de vous voir partir. Attention, cette action sera irréversible.</p>
+                    {{ include('restaurant_private/_delete_form.html.twig') }}
+                </div>
+            </div>    
+        </div>
+    </section>
+
+
+</div>
 
 {% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="container">
+    <div class="row">
+        <div class="col my-4">
+            <h1>Créer un compte à 1001plates</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col d-flex justify-content-center mt-5 mb-4">
+            <div class="btn-first">
+                <a href="{{path('app_register_restaurant')}}" class="btn btn-primary">Êtes-vous un restaurateur ?</a>
+            </div>
+        </div>    
+    </div>
+
+    <div class="row">
+        <div class="col d-flex justify-content-center mt-3 mb-5">
+            <div class="btn-first">
+                <a href="" class="btn btn-primary">Ou un nouveau client ?</a>
+            </div>
+        </div>    
+    </div>
+
+
+</div>
+{% endblock %}
