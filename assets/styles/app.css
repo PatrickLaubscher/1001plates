@@ -3,7 +3,34 @@
     --blue: #10343b;
     --salmon: #de5c5c;
     --green: #5a833b;
+    --green2 : #7fb357;
+    --back: #030b0c;
 }
+
+
+/* Font import */
+
+@font-face {
+    font-family: 'league-spartan';
+    src: url('/assets/font/LeagueSpartan-VF.woff') format('woff-variations');
+    font-weight: 200 900;
+}
+
+h1,h2,h3,h4 {
+    font-family: 'league-spartan';
+    font-weight: 600;
+}
+
+body {
+    font-family:'league-spartan';
+    font-weight: 400;
+    color: var(--back);
+}
+
+
+
+
+/* Background */
 
 .bg-blue {
     background-color: var(--blue);
@@ -31,9 +58,6 @@
     background-color: rgb(90 131 59 / 80%);
     border: rgb(90 131 59 / 80%) 1px solid;
 }
-
-
-
 
 
 .btn-second {
