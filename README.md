@@ -22,7 +22,7 @@ The customer can contact directly the restaurant or use the booking service of t
 
 ### Controllers structure 
 
-On the landing of the website, we can find the list of all the restaurant and 2 research forms (by name and city name). The main controller is the IndexController containing another route with the city name parameter. It includes a pagination from RestaurantRepository using KNP paginator. I wanted to use the symfony paginator on the admin back office. 
+On the landing page of the website, we can find the list of all the restaurant and 2 research forms (by name and city name). The main controller is the IndexController containing another route with the city name parameter. It includes a pagination from RestaurantRepository using KNP paginator. I wanted to use the symfony paginator on the admin back office. 
 RestaurantController possess 2 routes. One is the result of the form research by name and the other one the main page of each restaurant. 
 The FoodTypeController is referring on the listing by food category with 2 routes if the cityName is defined or not. 
 You can also find the NewsletterController including the newsletter form. I've used an API spam checker : https://api.apilayer.com for checking the entering emails. 
@@ -34,7 +34,7 @@ A resetPasswordController has been implemented also using the Symfony documentat
 
 ### Restaurant backoffice
 
-I've spent a lot of time in developping this back office where the restaurant user may modify the information and delete the account. The RestaurantPrivateController is maybe too heavy and could be dispatched. I've developped the different forms one by one and tested them as well at first.
+I've spent a lot of time in developping this back office where the restaurant user may modify the information and delete the account. The RestaurantPrivateController is maybe too heavy and could be maybe dispatched. I've developped the different forms one by one and tested them as well at first.
 
 
 ## Security 
@@ -63,6 +63,7 @@ It seems that the eventListener is not triggered when a restaurant is deleted.
 ### Booking service
 
 ### Exceptions and error managements
+Url parameter name in restaurant controller, it should be also by city or id in case of restaurant with the same name.
 
 ### API service
 
