@@ -37,6 +37,14 @@ A resetPasswordController has been implemented also using the Symfony documentat
 I've spent a lot of time in developping this back office where the restaurant user may modify the information and delete the account. The RestaurantPrivateController is maybe too heavy and could be dispatched. I've developped the different forms one by one and tested them as well at first.
 
 
+## Security 
+
+### Voters
+
+I've used 2 voters in restaurant private space one based on restaurant id and the other one based on menu id. 
+
+
+
 ## Issues
 
 ### EventListener on Delete restaurant 
