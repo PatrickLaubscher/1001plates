@@ -7,7 +7,7 @@ As inspiration, I've used the following well-known websites :
 https://www.thefork.fr/
 https://www.lyonresto.com/ 
 
-Logo / colors / typo have been designed by Mara Ciora. I've also received some suggestions on UI/UX.
+Logo / colors / typo by Mara Ciora. 
 https://maraciora.com/
 
 The application isn't finished at this stage. I will continue to work on it.
@@ -55,6 +55,9 @@ I've used 2 voters in restaurant private space one based on restaurant id and th
 
 ## Issues
 
+The API for checking spam may be more configuration to be efficient. I've conduct several test but I think another api check may be more suitable. 
+I didn't have the time to create the form for the openin day feature. It's working on the view side with binary conversion from integer. I have an idea for the create form but didn't try to do it. 
+I aslo tried to create an API exception for connection to the API but I'm not sure it's working well. Exceptions are on of the part I would like to learn more about. Managing error is quite challenging but interesting too.
 
 
 ## Features missing 
