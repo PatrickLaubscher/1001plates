@@ -33,10 +33,10 @@ class RestaurantController extends AbstractController
 
 
 
-    #[Route('/restaurant/{name}', name: 'app_restaurant_item')]
-    public function restaurantItem(Restaurant $restaurant, OpeningDaysRepository $openingDaysRepository, $name): Response
+    #[Route('/restaurant/{id}', name: 'app_restaurant_item')]
+    public function restaurantItem(Restaurant $restaurant, OpeningDaysRepository $openingDaysRepository, $id): Response
     {
-        $openingDays= $openingDaysRepository->findByRestaurantName($name);
+        $openingDays= $openingDaysRepository->findByRestaurantId($id);
 
 
         if($openingDays->getMidi() === 63){

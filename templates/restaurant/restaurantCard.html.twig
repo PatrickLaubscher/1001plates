@@ -3,12 +3,12 @@
 
 <div class="card mb-3" style="width: 18rem;">
     {% if restaurant.pictures|length > 0 %}
-        <a href="{{ path('app_restaurant_item', {name: restaurant.name}) }}" class="link-item">
-            <img src="{{ '/uploads/pictures/' ~ restaurant.pictures.first.filename }}" class="card-img-top" alt="{{restaurant.name}}" width="200">
+        <a href="{{ path('app_restaurant_item', {id: restaurant.id}) }}" class="link-item">
+            <img src="{{ 'uploads/pictures/' ~ restaurant.pictures.first.filename }}" class="card-img-top" alt="{{restaurant.name}}" width="200">
         </a>
     {% endif %}
     <div class="card-body">
-        <a href="{{ path('app_restaurant_item', {name: restaurant.name}) }}" class="link-item"><h5 class="card-title">{{restaurant.name}}</h5></a>
+        <a href="{{ path('app_restaurant_item', {id: restaurant.id}) }}" class="link-item"><h5 class="card-title">{{restaurant.name}}</h5></a>
         <p>
             {% for i in 1..restaurant.priceRange.priceRange %}
             €

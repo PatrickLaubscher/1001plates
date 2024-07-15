@@ -27,6 +27,17 @@ class OpeningDaysRepository extends ServiceEntityRepository
         ;
     }
 
+    public function findByRestaurantId(string $id): ?OpeningDays
+    {
+        return $this->createQueryBuilder('o')
+            ->join('o.restaurant', 'r')
+            ->where('r.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
     //    /**
     //     * @return OpeningDays[] Returns an array of OpeningDays objects
     //     */

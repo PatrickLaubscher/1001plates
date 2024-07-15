@@ -13,7 +13,6 @@ use App\Entity\Pictures;
 use App\Entity\Plates;
 use App\Entity\PriceRange;
 use App\Entity\Restaurant;
-use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 

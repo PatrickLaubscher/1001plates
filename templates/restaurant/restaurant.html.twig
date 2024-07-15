@@ -24,7 +24,7 @@
     <div class="inline-flex mb-3">
     {% for picture in restaurant.pictures %}
 
-        <img src="{{ '/uploads/pictures/' ~ picture.filename }}" alt="{{restaurant.name}}" width="300">
+        <img src="{{ 'uploads/pictures/' ~ picture.filename }}" alt="{{restaurant.name}}" width="300">
 
     {% endfor %}
     </div>
